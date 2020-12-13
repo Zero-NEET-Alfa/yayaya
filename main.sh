@@ -60,8 +60,8 @@ if [ ! -z "$1" ] && [ "$1" == 'initial' ];then
     fi
     [ -z "$BuilderKernel" ] && BuilderKernel="clang"
     if [ "$BuilderKernel" == "clang" ];then
-        getInfo ">> cloning proton clang 12 . . . <<"
-        git clone https://github.com/kdrag0n/proton-clang -b master $clangDir --depth=1
+        getInfo ">> cloning stormbreaker clang 12 . . . <<"
+        git clone https://github.com/stormbreaker-project/stormbreaker-clang -b 12.x $clangDir --depth=1
     fi
     if [ "$BuilderKernel" == "dtc" ];then
         getInfo ">> cloning DragonTC clang 10 . . . <<"
