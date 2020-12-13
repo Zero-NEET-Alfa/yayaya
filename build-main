@@ -32,7 +32,7 @@ function make_changes() {
 }
 
 ListBranch=""
-for Files in do-bn-u do-bn-x
+for Files in do-main
 do
     if [ "$TAGS" == "all" ];then
         if [[ -e ${Files}.sh ]];then
