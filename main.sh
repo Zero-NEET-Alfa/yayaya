@@ -245,7 +245,7 @@ CompileKernel(){
     LastHeadCommitId=$(git log --pretty=format:'%h' -n1)
     TAGKENEL="$(git log | grep "${SetTag}" | head -n 1 | awk -F '\\'${SetLastTag}'' '{print $1"'${SetLastTag}'"}' | awk -F '\\'${SetTag}'' '{print "'${SetTag}'"$2}')"
     if [ ! -z "$TAGKENEL" ];then
-        export KBUILD_BUILD_HOST="DroneCI-server-$TAGKENEL"
+        export KBUILD_BUILD_HOST="Circleci-server-$TAGKENEL"
     fi
     make -j${TotalCores}  O=out ARCH="$ARCH" "$DEFFCONFIG"
     if [ "$BuilderKernel" == "gcc" ];then
