@@ -61,7 +61,7 @@ if [ ! -z "$1" ] && [ "$1" == 'initial' ];then
     [ -z "$BuilderKernel" ] && BuilderKernel="clang"
     if [ "$BuilderKernel" == "clang" ];then
         getInfo ">> cloning stormbreaker clang 12 . . . <<"
-        git clone https://github.com/stormbreaker-project/stormbreaker-clang -b 12.x $clangDir --depth=1
+        git clone https://github.com/stormbreaker-project/stormbreaker-clang -b 11.x $clangDir --depth=1
     fi
     if [ "$BuilderKernel" == "dtc" ];then
         getInfo ">> cloning DragonTC clang 10 . . . <<"
@@ -282,7 +282,7 @@ CompileKernel(){
         cp -af $kernelDir/out/arch/$ARCH/boot/Image.gz-dtb $AnykernelDir
         KName=$(cat "$(pwd)/arch/$ARCH/configs/$DEFFCONFIG" | grep "CONFIG_LOCALVERSION=" | sed 's/CONFIG_LOCALVERSION="-*//g' | sed 's/"*//g' )
         [[ "$BuilderKernel" == "gcc" ]] && TypeBuilder="GCC"
-        [[ "$BuilderKernel" == "clang" ]] && TypeBuilder="Clang"
+        [[ "$BuilderKernel" == "clang" ]] && TypeBuilder="Stormbreaker"
         [[ "$BuilderKernel" == "dtc" ]] && TypeBuilder="DTC"
         if [ $TypeBuild == "Stable" ];then
             ZipName="[$GetBD][$TypeBuilder][${RefreshRate}Hz][$KernelFor][$CODENAME]$KVer-$KName-$LastHeadCommitId.zip"
