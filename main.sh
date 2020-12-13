@@ -50,7 +50,7 @@ GdriveDir=$mainDir/Gdrive-Uploader
 useGdrive='Y'
 
 if [ ! -z "$1" ] && [ "$1" == 'initial' ];then
-
+    allFromClang='N'
     if [ ! -z "$2" ] && [ "$2" == 'full' ];then
         getInfo ">> cloning kernel full . . . <<"
         git clone https://$GIT_SECRET@github.com/$GIT_USERNAME/X01BD_kernel -b "$branch" $kernelDir
@@ -62,26 +62,25 @@ if [ ! -z "$1" ] && [ "$1" == 'initial' ];then
     if [ "$BuilderKernel" == "clang" ];then
         getInfo ">> cloning stormbreaker clang 12 . . . <<"
         git clone https://github.com/stormbreaker-project/stormbreaker-clang -b 11.x $clangDir --depth=1
+        allFromClang='Y'
     fi
     if [ "$BuilderKernel" == "dtc" ];then
         getInfo ">> cloning DragonTC clang 10 . . . <<"
         git clone https://github.com/NusantaraDevs/DragonTC -b 10.0 $clangDir --depth=1
     fi
-    # if [ "$BuilderKernel" == "gcc" ];then
+    if [ "$allFromClang" == "N" ];then
         getInfo ">> cloning gcc64 . . . <<"
         git clone https://github.com/ZyCromerZ/aarch64-linux-android-4.9/ -b android-10.0.0_r47 $gcc64Dir --depth=1
         getInfo ">> cloning gcc32 . . . <<"
         git clone https://github.com/ZyCromerZ/arm-linux-androideabi-4.9/ -b android-10.0.0_r47 $gcc32Dir --depth=1
         for64=aarch64-linux-android
         for32=arm-linux-androideabi
-    # else
-    #     getInfo ">> cloning gcc64 . . . <<"
-    #     git clone https://github.com/ZyCromerZ/aarch64-linux-gnu-1 -b stable-gcc $gcc64Dir --depth=1
-    #     getInfo ">> cloning gcc32 . . . <<"
-    #     git clone https://github.com/ZyCromerZ/arm-linux-gnueabi -b stable-gcc $gcc32Dir --depth=1
-    #     for64=aarch64-linux-gnu
-    #     for32=arm-linux-gnueabi
-    # fi
+    else
+        gcc64Dir=$clangDir
+        gcc32Dir=$clangDir
+        for64=aarch64-linux-gnu
+        for32=arm-linux-gnueabi
+    fi
 
     getInfo ">> cloning Anykernel . . . <<"
     git clone https://github.com/ZyCromerZ/AnyKernel3 -b master $AnykernelDir --depth=1
@@ -200,26 +199,38 @@ CompileKernel(){
                 CROSS_COMPILE_ARM32=arm-linux-androideabi-
         )
     else
-        MAKE+=(
+        if [ "$allFromClang" == "Y" ];then
+            MAKE+=(
                 ARCH=$ARCH \
                 SUBARCH=$ARCH \
-                PATH=$clangDir/bin:$gcc64Dir/bin:$gcc32Dir/bin:/usr/bin:${PATH} \
+                PATH=$clangDir/bin:${PATH} \
                 CC=clang \
                 CROSS_COMPILE=$for64- \
                 CROSS_COMPILE_ARM32=$for32- \
-                AR=llvm-ar \
-                AS=llvm-as \
-                NM=llvm-nm \
-                STRIP=llvm-strip \
-                OBJCOPY=llvm-objcopy \
-                OBJDUMP=llvm-objdump \
-                OBJSIZE=llvm-size \
-                READELF=llvm-readelf \
-                HOSTCC=clang \
-                HOSTCXX=clang++ \
-                HOSTAR=llvm-ar \
                 CLANG_TRIPLE=aarch64-linux-gnu-
-        )
+            )
+        else
+            MAKE+=(
+                    ARCH=$ARCH \
+                    SUBARCH=$ARCH \
+                    PATH=$clangDir/bin:$gcc64Dir/bin:$gcc32Dir/bin:/usr/bin:${PATH} \
+                    CC=clang \
+                    CROSS_COMPILE=$for64- \
+                    CROSS_COMPILE_ARM32=$for32- \
+                    AR=llvm-ar \
+                    AS=llvm-as \
+                    NM=llvm-nm \
+                    STRIP=llvm-strip \
+                    OBJCOPY=llvm-objcopy \
+                    OBJDUMP=llvm-objdump \
+                    OBJSIZE=llvm-size \
+                    READELF=llvm-readelf \
+                    HOSTCC=clang \
+                    HOSTCXX=clang++ \
+                    HOSTAR=llvm-ar \
+                    CLANG_TRIPLE=aarch64-linux-gnu-
+            )
+        fi
     fi
     # rm -rf out # always remove out directory :V
     BUILD_START=$(date +"%s")
@@ -256,25 +267,36 @@ CompileKernel(){
             CROSS_COMPILE=aarch64-linux-android- \
             CROSS_COMPILE_ARM32=arm-linux-androideabi-
     else
-        make -j${TotalCores}  O=out \
-            ARCH=$ARCH \
-            SUBARCH=$ARCH \
-            PATH=$clangDir/bin:$gcc64Dir/bin:$gcc32Dir/bin:/usr/bin:${PATH} \
-            CC=clang \
-            CROSS_COMPILE=$for64- \
-            CROSS_COMPILE_ARM32=$for32- \
-            AR=llvm-ar \
-            AS=llvm-as \
-            NM=llvm-nm \
-            STRIP=llvm-strip \
-            OBJCOPY=llvm-objcopy \
-            OBJDUMP=llvm-objdump \
-            OBJSIZE=llvm-size \
-            READELF=llvm-readelf \
-            HOSTCC=clang \
-            HOSTCXX=clang++ \
-            HOSTAR=llvm-ar \
-            CLANG_TRIPLE=aarch64-linux-gnu-
+        if [ "$allFromClang" == "Y" ];then
+            make -j${TotalCores}  O=out \
+                ARCH=$ARCH \
+                SUBARCH=$ARCH \
+                PATH=$clangDir/bin:${PATH} \
+                CC=clang \
+                CROSS_COMPILE=$for64- \
+                CROSS_COMPILE_ARM32=$for32- \
+                CLANG_TRIPLE=aarch64-linux-gnu-
+        else
+            make -j${TotalCores}  O=out \
+                ARCH=$ARCH \
+                SUBARCH=$ARCH \
+                PATH=$clangDir/bin:$gcc64Dir/bin:$gcc32Dir/bin:/usr/bin:${PATH} \
+                CC=clang \
+                CROSS_COMPILE=$for64- \
+                CROSS_COMPILE_ARM32=$for32- \
+                AR=llvm-ar \
+                AS=llvm-as \
+                NM=llvm-nm \
+                STRIP=llvm-strip \
+                OBJCOPY=llvm-objcopy \
+                OBJDUMP=llvm-objdump \
+                OBJSIZE=llvm-size \
+                READELF=llvm-readelf \
+                HOSTCC=clang \
+                HOSTCXX=clang++ \
+                HOSTAR=llvm-ar \
+                CLANG_TRIPLE=aarch64-linux-gnu-
+        fi
     fi
     BUILD_END=$(date +"%s")
     DIFF=$((BUILD_END - BUILD_START))
