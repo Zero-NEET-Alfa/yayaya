@@ -207,6 +207,11 @@ CompileKernel(){
                 CC=clang \
                 CROSS_COMPILE=$for64- \
                 CROSS_COMPILE_ARM32=$for32- \
+                AR=llvm-ar \
+                NM=llvm-nm \
+                OBJCOPY=llvm-objcopy \
+                OBJDUMP=llvm-objdump \
+                STRIP=llvm-strip \
                 CLANG_TRIPLE=aarch64-linux-gnu-
             )
         else
@@ -275,6 +280,11 @@ CompileKernel(){
                 CC=clang \
                 CROSS_COMPILE=$for64- \
                 CROSS_COMPILE_ARM32=$for32- \
+                AR=llvm-ar \
+                NM=llvm-nm \
+                OBJCOPY=llvm-objcopy \
+                OBJDUMP=llvm-objdump \
+                STRIP=llvm-strip \
                 CLANG_TRIPLE=aarch64-linux-gnu-
         else
             make -j${TotalCores}  O=out \
