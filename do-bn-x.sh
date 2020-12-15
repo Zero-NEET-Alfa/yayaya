@@ -5,7 +5,7 @@ BuilderKernel="00000"
 if [ "$BuilderKernel" != "clang" ] && [ "$BuilderKernel" != "dtc" ] && [ "$BuilderKernel" != "gcc" ] ;then
     exit;
 fi
-. main.sh 'initial' 'full'
+. main.sh 'initial'
 
 FolderUp="BrokenNucleus"
 spectrumFile="f.rc"

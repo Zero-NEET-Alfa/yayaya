@@ -359,6 +359,7 @@ MakeZip(){
 FixPieWifi()
 {
     cd $kernelDir
+    git fetch origin 4d79c0f15bbe67910e9f1346cc18a18101a47607 --depth=2
     git reset --hard origin/$branch
     git revert 4d79c0f15bbe67910e9f1346cc18a18101a47607 --no-commit
     git commit -s -m "Fix wifi broken for Android 9"
