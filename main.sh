@@ -62,7 +62,7 @@ if [ ! -z "$1" ] && [ "$1" == 'initial' ];then
     if [ "$BuilderKernel" == "clang" ];then
         getInfo ">> cloning silont clang . . . <<"
         git clone https://github.com/silont-project/silont-clang -b master $clangDir --depth=1
-        allFromClang='Y'
+        allFromClang='N'
     fi
     if [ "$BuilderKernel" == "dtc" ];then
         getInfo ">> cloning DragonTC clang 10 . . . <<"
