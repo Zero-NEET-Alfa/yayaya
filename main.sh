@@ -49,6 +49,8 @@ GdriveDir=$mainDir/Gdrive-Uploader
 
 useGdrive='Y'
 
+Author="Zero-NEET-Alfa"
+
 if [ ! -z "$1" ] && [ "$1" == 'initial' ];then
     allFromClang='N'
     if [ ! -z "$2" ] && [ "$2" == 'full' ];then
@@ -107,7 +109,7 @@ if [ ! -z "$1" ] && [ "$1" == 'initial' ];then
     SetTag="LA.UM.8.2.r1"
     SetLastTag="sdm660.0"
     FolderUp=""
-    export KBUILD_BUILD_USER="Zero-NEET-Alfa"
+    export KBUILD_BUILD_USER="$Author"
     export KBUILD_BUILD_HOST="Circleci-server"
     if [ "$BuilderKernel" == "gcc" ];then
         ClangType="$($gcc64Dir/bin/$for64-gcc --version | head -n 1)"
@@ -345,7 +347,7 @@ MakeZip(){
     if [ ! -z "$spectrumFile" ];then
         cp -af $SpectrumDir/$spectrumFile init.spectrum.rc && sed -i "s/persist.spectrum.kernel.*/persist.spectrum.kernel $KName/g" init.spectrum.rc
     fi
-    cp -af anykernel-real.sh anykernel.sh && sed -i "s/kernel.string=.*/kernel.string=$KName-$HeadCommitId by Zero-NEET-Alfa/g" anykernel.sh
+    cp -af anykernel-real.sh anykernel.sh && sed -i "s/kernel.string=.*/kernel.string=$KName-$HeadCommitId by $Author/g" anykernel.sh
 
     zip -r9 "$RealZipName" * -x .git README.md anykernel-real.sh .gitignore *.zip
     if [ ! -z "$1" ];then
