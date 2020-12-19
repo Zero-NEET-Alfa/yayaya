@@ -108,8 +108,8 @@ if [ ! -z "$1" ] && [ "$1" == 'initial' ];then
     RefreshRate="60"
     SetTag="LA.UM.8.2.r1"
     SetLastTag="sdm660.0"
-    FolderUp=""
-    export KBUILD_BUILD_USER="$Author"
+    FolderUp="xobod-private"
+    ExFolder=""
     export KBUILD_BUILD_HOST="Circleci-server"
     if [ "$BuilderKernel" == "gcc" ];then
         ClangType="$($gcc64Dir/bin/$for64-gcc --version | head -n 1)"
@@ -169,7 +169,7 @@ tg_send_files(){
         currentFolder="$(pwd)"
         cd $GdriveDir
         chmod +x run.sh
-        . run.sh "$KernelFiles" "x01bd" "$(date +"%m-%d-%Y")" "$FolderUp"
+        . run.sh "$KernelFiles" "$FolderUp" "$(date +"%m-%d-%Y")" "$ExFolder"
         cd $currentFolder
         if [ ! -z "$1" ];then
             tg_send_info "$MSG" "$1"
@@ -190,6 +190,7 @@ tg_send_files(){
 
 CompileKernel(){
     cd $kernelDir
+    export KBUILD_BUILD_USER="$Author"
     export KBUILD_COMPILER_STRING
     if [ "$BuilderKernel" == "gcc" ];then
         MAKE+=(

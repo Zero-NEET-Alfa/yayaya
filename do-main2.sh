@@ -8,7 +8,8 @@ fi
 . main.sh 'initial'
 
 Author="ZyCromerZ"
-FolderUp="Neutrino-main"
+FolderUp="x01bd"
+ExFolder="Neutrino"
 spectrumFile=""
 TypeBuild="MAIN-Neutrino-BRANCH"
 TypeBuildTag="AOSP"

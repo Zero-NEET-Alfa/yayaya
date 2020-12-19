@@ -7,7 +7,7 @@ if [ "$BuilderKernel" != "clang" ] && [ "$BuilderKernel" != "dtc" ] && [ "$Build
 fi
 . main.sh 'initial'
 
-FolderUp="BrokenNucleus"
+ExFolder="X"
 spectrumFile="f.rc"
 TypeBuild="Stable"
 TypeBuildTag="AOSP"
