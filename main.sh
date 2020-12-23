@@ -103,11 +103,13 @@ if [ ! -z "$1" ] && [ "$1" == 'initial' ];then
     GetCBD=$(date +"%Y-%m-%d")
     TotalCores=$(nproc --all)
     TypeBuildTag="AOSP"
-    KernelFor='Q'
+    KernelFor='R-Q'
     SendInfo='belum'
     RefreshRate="60"
     SetTag="LA.UM.8.2.r1"
     SetLastTag="sdm660.0"
+    SetTagR="LA.UM.9.2.r1"
+    SetLastTagR="SDMxx0.0"
     FolderUp="xobod-private"
     ExFolder=""
     export KBUILD_BUILD_HOST="Circleci-server"
@@ -265,6 +267,10 @@ CompileKernel(){
     if [ ! -z "$TAGKENEL" ];then
         export KBUILD_BUILD_HOST="Circleci-server-$TAGKENEL"
     fi
+    TAGKENELR="$(git log | grep "${SetTagR}" | head -n 1 | awk -F '\\'${SetLastTagR}'' '{print $1"'${SetLastTagR}'"}' | awk -F '\\'${SetTagR}'' '{print "'${SetTagR}'"$2}')"
+    if [ ! -z "$TAGKENEL" ];then
+        export KBUILD_BUILD_HOST="Circleci-server-$TAGKENELR"
+    fi
     make -j${TotalCores}  O=out ARCH="$ARCH" "$DEFFCONFIG"
     if [ "$BuilderKernel" == "gcc" ];then
         make -j${TotalCores}  O=out \
@@ -361,14 +367,28 @@ MakeZip(){
 FixPieWifi()
 {
     cd $kernelDir
-    git fetch origin 4d79c0f15bbe67910e9f1346cc18a18101a47607 --depth=2
-    git reset --hard origin/$branch
-    git revert 4d79c0f15bbe67910e9f1346cc18a18101a47607 --no-commit
+    git revert bbed6c7c6fe2779f9c5fc80124e13411277d4ca1 --no-commit
     git commit -s -m "Fix wifi broken for Android 9"
     KVer=$(make kernelversion)
     HeadCommitId=$(git log --pretty=format:'%h' -n1)
     HeadCommitMsg=$(git log --pretty=format:'%s' -n1)
     KernelFor='P'
+    RefreshRate="60"
+    rm -rf out
+    cd $mainDir
+}
+
+
+PullPTags()
+{
+    cd $kernelDir
+    git pull lineage-17.1-p --no-commit
+    git add .
+    git commit -s -m "Pull P caf tags"
+    KVer=$(make kernelversion)
+    HeadCommitId=$(git log --pretty=format:'%h' -n1)
+    HeadCommitMsg=$(git log --pretty=format:'%s' -n1)
+    KernelFor='Q'
     RefreshRate="60"
     rm -rf out
     cd $mainDir
