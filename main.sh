@@ -64,7 +64,7 @@ if [ ! -z "$1" ] && [ "$1" == 'initial' ];then
     if [ "$BuilderKernel" == "clang" ];then
         getInfo ">> cloning stormbreaker clang 11 . . . <<"
         git clone https://github.com/stormbreaker-project/stormbreaker-clang -b 11.x $clangDir --depth=1
-        allFromClang='Y'
+        allFromClang='N'
     fi
     if [ "$BuilderKernel" == "dtc" ];then
         getInfo ">> cloning DragonTC clang 10 . . . <<"
