@@ -401,6 +401,7 @@ MakeZip(){
 FixPieWifi()
 {
     cd $kernelDir
+    rm -rf out
     git revert bbed6c7c6fe2779f9c5fc80124e13411277d4ca1 --no-commit
     git commit -s -m "Fix wifi broken for Android 9"
     KVer=$(make kernelversion)
@@ -416,6 +417,7 @@ FixPieWifi()
 PullPTags()
 {
     cd $kernelDir
+    rm -rf out
     git pull lineage-17.1-p --no-commit
     git add .
     git commit -s -m "Pull P caf tags"
