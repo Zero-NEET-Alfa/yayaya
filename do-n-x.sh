@@ -14,6 +14,7 @@ spectrumFile="f.rc"
 TypeBuild="Stable"
 TypeBuildTag="AOSP"
 getInfo ">> Building kernel . . . . <<"
+DoSplitDate='Y'
 
 
 CompileKernel

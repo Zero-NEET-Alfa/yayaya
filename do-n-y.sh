@@ -14,6 +14,7 @@ spectrumFile="vipn.rc"
 TypeBuild="Stable"
 TypeBuildTag="AOSP"
 getInfo ">> Building kernel . . . . <<"
+DoSplitDate='Y'
 
 CompileKernel
 CompileKernel "65"
