@@ -16,14 +16,17 @@ TypeBuildTag="AOSP"
 getInfo ">> Building kernel . . . . <<"
 
 CompileKernel
+CompileKernel "65"
 
 PullPTags
 
 CompileKernel
+CompileKernel "65"
 
 FixPieWifi
 
 CompileKernel
+CompileKernel "65"
 
 
 tg_send_info "All $GetKernelName $BuilderKernel already uploaded to Gdrive :D"
