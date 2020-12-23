@@ -65,6 +65,7 @@ if [ ! -z "$1" ] && [ "$1" == 'initial' ];then
         getInfo ">> cloning stormbreaker clang 11 . . . <<"
         git clone https://github.com/stormbreaker-project/stormbreaker-clang -b 11.x $clangDir --depth=1
         allFromClang='N'
+        SimpleClang="Y"
     fi
     if [ "$BuilderKernel" == "dtc" ];then
         getInfo ">> cloning DragonTC clang 10 . . . <<"
@@ -219,7 +220,8 @@ CompileKernel(){
                 CLANG_TRIPLE=aarch64-linux-gnu-
             )
         else
-            MAKE+=(
+            if [ "$SimpleClang" == "Y" ];then
+                MAKE+=(
                     ARCH=$ARCH \
                     SUBARCH=$ARCH \
                     PATH=$clangDir/bin:$gcc64Dir/bin:$gcc32Dir/bin:/usr/bin:${PATH} \
@@ -227,18 +229,34 @@ CompileKernel(){
                     CROSS_COMPILE=$for64- \
                     CROSS_COMPILE_ARM32=$for32- \
                     AR=llvm-ar \
-                    AS=llvm-as \
                     NM=llvm-nm \
-                    STRIP=llvm-strip \
                     OBJCOPY=llvm-objcopy \
                     OBJDUMP=llvm-objdump \
-                    OBJSIZE=llvm-size \
-                    READELF=llvm-readelf \
-                    HOSTCC=clang \
-                    HOSTCXX=clang++ \
-                    HOSTAR=llvm-ar \
+                    STRIP=llvm-strip \
                     CLANG_TRIPLE=aarch64-linux-gnu-
-            )
+                )
+            else
+                MAKE+=(
+                        ARCH=$ARCH \
+                        SUBARCH=$ARCH \
+                        PATH=$clangDir/bin:$gcc64Dir/bin:$gcc32Dir/bin:/usr/bin:${PATH} \
+                        CC=clang \
+                        CROSS_COMPILE=$for64- \
+                        CROSS_COMPILE_ARM32=$for32- \
+                        AR=llvm-ar \
+                        AS=llvm-as \
+                        NM=llvm-nm \
+                        STRIP=llvm-strip \
+                        OBJCOPY=llvm-objcopy \
+                        OBJDUMP=llvm-objdump \
+                        OBJSIZE=llvm-size \
+                        READELF=llvm-readelf \
+                        HOSTCC=clang \
+                        HOSTCXX=clang++ \
+                        HOSTAR=llvm-ar \
+                        CLANG_TRIPLE=aarch64-linux-gnu-
+                )
+            fi
         fi
     fi
     # rm -rf out # always remove out directory :V
@@ -295,25 +313,41 @@ CompileKernel(){
                 STRIP=llvm-strip \
                 CLANG_TRIPLE=aarch64-linux-gnu-
         else
-            make -j${TotalCores}  O=out \
-                ARCH=$ARCH \
-                SUBARCH=$ARCH \
-                PATH=$clangDir/bin:$gcc64Dir/bin:$gcc32Dir/bin:/usr/bin:${PATH} \
-                CC=clang \
-                CROSS_COMPILE=$for64- \
-                CROSS_COMPILE_ARM32=$for32- \
-                AR=llvm-ar \
-                AS=llvm-as \
-                NM=llvm-nm \
-                STRIP=llvm-strip \
-                OBJCOPY=llvm-objcopy \
-                OBJDUMP=llvm-objdump \
-                OBJSIZE=llvm-size \
-                READELF=llvm-readelf \
-                HOSTCC=clang \
-                HOSTCXX=clang++ \
-                HOSTAR=llvm-ar \
-                CLANG_TRIPLE=aarch64-linux-gnu-
+            if [ "$SimpleClang" == "Y" ];then
+                make -j${TotalCores}  O=out \
+                    ARCH=$ARCH \
+                    SUBARCH=$ARCH \
+                    PATH=$clangDir/bin:$gcc64Dir/bin:$gcc32Dir/bin:/usr/bin:${PATH} \
+                    CC=clang \
+                    CROSS_COMPILE=$for64- \
+                    CROSS_COMPILE_ARM32=$for32- \
+                    AR=llvm-ar \
+                    NM=llvm-nm \
+                    OBJCOPY=llvm-objcopy \
+                    OBJDUMP=llvm-objdump \
+                    STRIP=llvm-strip \
+                    CLANG_TRIPLE=aarch64-linux-gnu-
+            else
+                make -j${TotalCores}  O=out \
+                    ARCH=$ARCH \
+                    SUBARCH=$ARCH \
+                    PATH=$clangDir/bin:$gcc64Dir/bin:$gcc32Dir/bin:/usr/bin:${PATH} \
+                    CC=clang \
+                    CROSS_COMPILE=$for64- \
+                    CROSS_COMPILE_ARM32=$for32- \
+                    AR=llvm-ar \
+                    AS=llvm-as \
+                    NM=llvm-nm \
+                    STRIP=llvm-strip \
+                    OBJCOPY=llvm-objcopy \
+                    OBJDUMP=llvm-objdump \
+                    OBJSIZE=llvm-size \
+                    READELF=llvm-readelf \
+                    HOSTCC=clang \
+                    HOSTCXX=clang++ \
+                    HOSTAR=llvm-ar \
+                    CLANG_TRIPLE=aarch64-linux-gnu-
+            fi
         fi
     fi
     BUILD_END=$(date +"%s")
