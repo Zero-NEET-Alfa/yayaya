@@ -188,7 +188,7 @@ tg_send_files(){
     fi
 
     # remove files after build done
-    rm -rf $KernelFiles
+    rm -rf $KernelFiles $kernelDir/out/arch/$ARCH/boot/Image.gz-dtb
 }
 
 CompileKernel(){
