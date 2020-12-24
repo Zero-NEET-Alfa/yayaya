@@ -15,7 +15,7 @@ TypeBuild="MAIN-Neutrino-BRANCH"
 TypeBuildTag="AOSP"
 getInfo ">> Building kernel . . . . <<"
 
-CompileKernel
+# CompileKernel
 
 PullPTags
 
