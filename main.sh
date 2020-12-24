@@ -429,9 +429,9 @@ PullPTags()
     rm -rf out drivers/staging/qcacld-3.0 drivers/staging/fw-api drivers/staging/qca-wifi-host-cmn
     git add .
     git commit -s -m "Remove Q WLAN DRIVERS"
-    initial-qcacld qcacld-3.0 LA.UM.8.2.r1-07500-sdm660.0 && \
-    initial-qcacld fw-api LA.UM.8.2.r1-07500-sdm660.0 && \
-    initial-qcacld qca-wifi-host-cmn LA.UM.8.2.r1-07500-sdm660.0
+    initial-qcacld qcacld-3.0 LA.UM.7.2.r1-09600-sdm660.0 && \
+    initial-qcacld fw-api LA.UM.7.2.r1-09600-sdm660.0 && \
+    initial-qcacld qca-wifi-host-cmn LA.UM.7.2.r1-09600-sdm660.0
     git fetch origin 24e21b45cf7a9eb57540e7c7caf19168aa6cf5ac --depth=14
     git cherry-pick 88961ef633c361984df1d29bb4897d06968215ee..f3856fb685d3a4107148a6459e2b2592d1efeb57
     KVer=$(make kernelversion)
