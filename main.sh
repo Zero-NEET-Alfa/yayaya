@@ -286,7 +286,7 @@ CompileKernel(){
         export KBUILD_BUILD_HOST="Circleci-server-$TAGKENEL"
     fi
     TAGKENELR="$(git log | grep "${SetTagR}" | head -n 1 | awk -F '\\'${SetLastTagR}'' '{print $1"'${SetLastTagR}'"}' | awk -F '\\'${SetTagR}'' '{print "'${SetTagR}'"$2}')"
-    if [ ! -z "$TAGKENEL" ];then
+    if [ ! -z "$TAGKENELR" ];then
         export KBUILD_BUILD_HOST="Circleci-server-$TAGKENELR"
     fi
     make -j${TotalCores}  O=out ARCH="$ARCH" "$DEFFCONFIG"
@@ -401,6 +401,7 @@ MakeZip(){
 FixPieWifi()
 {
     cd $kernelDir
+    git reset  --hard $HeadCommitId
     rm -rf out
     git revert bbed6c7c6fe2779f9c5fc80124e13411277d4ca1 --no-commit
     git commit -s -m "Fix wifi broken for Android 9"
@@ -414,13 +415,25 @@ FixPieWifi()
 }
 
 
+initial-qcacld(){
+    git fetch https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/$1 $2 --depth=1
+    git merge -s ours --no-commit --allow-unrelated-histories FETCH_HEAD
+    git read-tree --prefix=drivers/staging/$1 -u FETCH_HEAD
+    git commit -s -m "Merge $2 to drivers/staging/$1"
+}
+
 PullPTags()
 {
     cd $kernelDir
-    rm -rf out
-    git pull lineage-17.1-p --no-commit
+    git reset --hard $HeadCommitId
+    rm -rf out drivers/staging/qcacld-3.0 drivers/staging/fw-api drivers/staging/qca-wifi-host-cmn
     git add .
-    git commit -s -m "Pull P caf tags"
+    git commit -s -m "Remove Q WLAN DRIVERS"
+    initial-qcacld qcacld-3.0 LA.UM.8.2.r1-07500-sdm660.0 && \
+    initial-qcacld fw-api LA.UM.8.2.r1-07500-sdm660.0 && \
+    initial-qcacld qca-wifi-host-cmn LA.UM.8.2.r1-07500-sdm660.0
+    git fetch origin 24e21b45cf7a9eb57540e7c7caf19168aa6cf5ac --depth=14
+    git cherry-pick 88961ef633c361984df1d29bb4897d06968215ee..f3856fb685d3a4107148a6459e2b2592d1efeb57
     KVer=$(make kernelversion)
     HeadCommitId=$(git log --pretty=format:'%h' -n1)
     HeadCommitMsg=$(git log --pretty=format:'%s' -n1)
