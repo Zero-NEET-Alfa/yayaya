@@ -416,7 +416,7 @@ FixPieWifi()
 
 
 initial-qcacld(){
-    git fetch https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/$1 $2 --depth=1
+    git fetch https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/wlan/$1 $2
     git merge -s ours --no-commit --allow-unrelated-histories FETCH_HEAD
     git read-tree --prefix=drivers/staging/$1 -u FETCH_HEAD
     git commit -s -m "Merge $2 to drivers/staging/$1"
