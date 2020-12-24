@@ -104,7 +104,7 @@ if [ ! -z "$1" ] && [ "$1" == 'initial' ];then
     GetCBD=$(date +"%Y-%m-%d")
     TotalCores=$(nproc --all)
     TypeBuildTag="AOSP"
-    KernelFor='R-Q'
+    KernelFor='R'
     SendInfo='belum'
     RefreshRate="60"
     SetTag="LA.UM.8.2.r1"
