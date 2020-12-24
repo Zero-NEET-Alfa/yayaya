@@ -9,24 +9,29 @@ fi
 
 Author="ZyCromerZ"
 FolderUp="xobod-neutrino"
-ExFolder="Y"
 spectrumFile="vipn.rc"
 TypeBuild="Stable"
 TypeBuildTag="AOSP"
 getInfo ">> Building kernel . . . . <<"
 DoSplitDate='Y'
 
+ExFolder="Y-R"
 CompileKernel
 CompileKernel "65"
+CompileKernel "68"
 
 PullPTags
 
+ExFolder="Y-Q"
 CompileKernel
 CompileKernel "65"
+CompileKernel "68"
 
-# FixPieWifi
+FixPieWifi
 
-# CompileKernel
-# CompileKernel "65"
+ExFolder="Y-P"
+CompileKernel
+CompileKernel "65"
+CompileKernel "68"
 
 tg_send_info "All $GetKernelName $BuilderKernel already uploaded to Gdrive :D"
