@@ -24,10 +24,10 @@ PullPTags
 CompileKernel
 CompileKernel "65"
 
-FixPieWifi
+# FixPieWifi
 
-CompileKernel
-CompileKernel "65"
+# CompileKernel
+# CompileKernel "65"
 
 
 tg_send_info "All $GetKernelName $BuilderKernel already uploaded to Gdrive :D"
