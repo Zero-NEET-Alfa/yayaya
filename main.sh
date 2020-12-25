@@ -96,7 +96,7 @@ if [ ! -z "$1" ] && [ "$1" == 'initial' ];then
     
     DEVICE="Asus Max Pro M2"
     CODENAME="X01BD"
-    SaveChatID="-1001426291932"
+    SaveChatID="-1001150624898"
     ARCH="arm64"
     TypeBuild="Stable"
     DEFFCONFIG="X01BD_defconfig"
@@ -150,7 +150,7 @@ tg_send_info(){
         -d "parse_mode=html" \
         -d text="$1"
     else
-        curl -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" -d chat_id="-1001426291932" \
+        curl -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" -d chat_id="-1001150624898" \
         -d "disable_web_page_preview=true" \
         -d "parse_mode=html" \
         -d text="$1"
