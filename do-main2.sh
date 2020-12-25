@@ -17,11 +17,11 @@ TypeBuild="LAST-TEST"
 TypeBuildTag="AOSP"
 getInfo ">> Building kernel . . . . <<"
 
-CompileKernel
-
-# PullPTags
-
 # CompileKernel
+
+PullPTags
+
+CompileKernel
 
 # FixPieWifi
 
