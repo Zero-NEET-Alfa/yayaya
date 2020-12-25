@@ -11,7 +11,11 @@ jobs:
             check=$(ls /usr/lib/x86_64-linux-gnu | grep libz3.so -m1)
             if [ ! -z "$check" ]; then if [ "$check" != "libz3.so.4.8" ]; then cp -af /usr/lib/x86_64-linux-gnu/$check /usr/lib/x86_64-linux-gnu/libz3.so.4.8; fi; fi
             branch=$CIRCLE_BRANCH
-            git clone https://$githubKey@github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git -b $branch builder_kernel --depth=1
+            if [[ "$CIRCLE_REPOSITORY_URL" == *"bitbucket.org"* ]];then
+              git clone https://$CIRCLE_PROJECT_USERNAME@bitbucket.org/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git -b $branch builder_kernel --depth=1
+            else
+              git clone https://$githubKey@github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git -b $branch builder_kernel --depth=1
+            fi
             cd builder_kernel
             bash ./do-main.sh
           no_output_timeout : 5h
