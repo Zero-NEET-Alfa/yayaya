@@ -17,7 +17,7 @@ TypeBuild="LAST-TEST"
 TypeBuildTag="AOSP"
 getInfo ">> Building kernel . . . . <<"
 
-# CompileKernel
+CompileKernel
 
 PullPTags
 
