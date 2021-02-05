@@ -13,7 +13,6 @@ spectrumFile="None"
 TypeBuild="Stable"
 TypeBuildTag="AOSP"
 getInfo ">> Building kernel . . . . <<"
-DoSplitDate='Y'
 
 
 ExFolder="STOCK-R"

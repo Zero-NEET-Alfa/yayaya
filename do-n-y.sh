@@ -8,28 +8,33 @@ fi
 . main.sh 'initial'
 
 Author="ZyCromerZ"
-FolderUp="xobod-neutrino"
+FolderUp="xobod-neutrino-y-r"
+doSFUp="$FolderUp"
+PostLinkNow="Y"
 spectrumFile="vipn.rc"
 TypeBuild="Stable"
 TypeBuildTag="AOSP"
 getInfo ">> Building kernel . . . . <<"
-DoSplitDate='Y'
 
-ExFolder="Y-R"
+# ExFolder="Y-R"
 CompileKernel
 CompileKernel "65"
 CompileKernel "68"
 
 PullPTags
 
-ExFolder="Y-Q"
+# ExFolder="Y-Q"
+FolderUp="xobod-neutrino-y-q"
+doSFUp="$FolderUp"
 CompileKernel
 CompileKernel "65"
 CompileKernel "68"
 
 FixPieWifi
 
-ExFolder="Y-P"
+# ExFolder="Y-P"
+FolderUp="xobod-neutrino-y-p"
+doSFUp="$FolderUp"
 CompileKernel
 CompileKernel "65"
 CompileKernel "68"
