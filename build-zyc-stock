@@ -31,17 +31,17 @@ function make_changes() {
     git checkout $1-$2 && update_fileB "00000" "$2" "./$1.sh" && update_file 'do-main.sh' "$1.sh" './.circleci/config.yml'
 }
 
-FolderUp="xobod-stock"
-KernelFiles='None'
-DoSplitDate='Y'
-CurrFolder=$(pwd)
-FolderDrive=../../compilled-gdrive
-cd $FolderDrive
-. run.sh "$KernelFiles" "$FolderUp" "$(date +"%m-%d-%Y")" "$ExFolder"
-cd $CurrFolder
+# FolderUp="xobod-stock"
+# KernelFiles='None'
+# DoSplitDate='Y'
+# CurrFolder=$(pwd)
+# FolderDrive=../../compilled-gdrive
+# cd $FolderDrive
+# . run.sh "$KernelFiles" "$FolderUp" "$(date +"%m-%d-%Y")" "$ExFolder"
+# cd $CurrFolder
 
 ListBranch=""
-for Files in do-stock
+for Files in do-stock-test
 do
     if [ "$TAGS" == "all" ];then
         if [[ -e ${Files}.sh ]];then
