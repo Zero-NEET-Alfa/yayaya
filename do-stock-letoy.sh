@@ -9,24 +9,24 @@ spectrumFile="none"
 TypeBuild="Stable"
 TypeBuildTag="STOCK"
 getInfo ">> Building kernel . . . . <<"
-FolderUp="letoy-stock"
-doSFUp=$FolderUp
-doOsdnUp=$FolderUp
-PostLinkNow="Y"
+FolderUp="keqing-drive"
+# doSFUp=$FolderUp
+# doOsdnUp=$FolderUp
+# PostLinkNow="Y"
 
 # kDLi='stock-memeui-clang'
 CompileKernel
 
-BuilderKernel="dtc"
-changeGcc
-changeClang
+# BuilderKernel="dtc"
+# changeGcc
+# changeClang
 
-# kDLi='stock-memeui-dtc'
-CompileKernel
+# # kDLi='stock-memeui-dtc'
+# CompileKernel
 
-BuilderKernel="gcc"
-changeGcc
-changeClang
+# BuilderKernel="gcc"
+# changeGcc
+# changeClang
 
-# kDLi='stock-memeui-gcc'
-CompileKernel
+# # kDLi='stock-memeui-gcc'
+# CompileKernel
