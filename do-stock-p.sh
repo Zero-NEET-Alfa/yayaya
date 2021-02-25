@@ -1,5 +1,5 @@
 #! /bin/bash
-branch="lineage-18.1-mod"
+branch="base-P"
 BuilderKernel="00000"
 
 if [ "$BuilderKernel" != "clang" ] && [ "$BuilderKernel" != "dtc" ] && [ "$BuilderKernel" != "gcc" ] ;then
@@ -15,7 +15,8 @@ TypeBuildTag="AOSP"
 getInfo ">> Building kernel . . . . <<"
 
 
-ExFolder="STOCK-R"
+ExFolder="STOCK-P"
+KernelFor="P"
 CompileKernel
 # CompileKernel "65"
 # CompileKernel "68"

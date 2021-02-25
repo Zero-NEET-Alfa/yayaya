@@ -39,9 +39,9 @@ function make_changes() {
 # cd $FolderDrive
 # . run.sh "$KernelFiles" "$FolderUp" "$(date +"%m-%d-%Y")" "$ExFolder"
 # cd $CurrFolder
-
+git reset --hard
 ListBranch=""
-for Files in do-stock-test
+for Files in do-stock-p do-stock-q do-stock-r
 do
     if [ "$TAGS" == "all" ];then
         if [[ -e ${Files}.sh ]];then
