@@ -1,6 +1,6 @@
 #! /bin/bash
-branch="20210216/neutrino-xt"
-BuilderKernel="clang"
+branch="20210228/qk-l"
+BuilderKernel="gcc"
 # UseOldGcc="Y"
 . main-merlin.sh 'initial' 'full'
 export KBUILD_BUILD_VERSION=4
@@ -16,9 +16,9 @@ FolderUp="keqing-drive"
 # PostLinkNow="Y"
 
 # kDLi='stock-memeui-clang'
-CompileKernel
-pullLmk
-CompileKernel
+# CompileKernel
+# pullLmk
+# CompileKernel
 pullSlmk
 CompileKernel
 

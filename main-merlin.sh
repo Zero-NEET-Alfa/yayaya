@@ -261,7 +261,7 @@ CompileKernel(){
             )
         fi
     fi
-    rm -rf out # always remove out directory :V
+    # rm -rf out # always remove out directory :V
     BUILD_START=$(date +"%s")
     if [ ! -z "$DRONE_BUILD_NUMBER" ];then
         CIRCLE_BUILD_NUM="$DRONE_BUILD_NUMBER"
@@ -280,8 +280,8 @@ CompileKernel(){
         tg_send_info "$MSG" 
     fi
 
-    git fetch origin 16d43427c2e5707028860d90719fcf3026bfa21a --depth=2
-    git cherry-pick 16d43427c2e5707028860d90719fcf3026bfa21a
+    git fetch origin 45bb0478d445 --depth=2
+    git cherry-pick 45bb0478d445
 
     make -j${TotalCores}  O=out ARCH="$ARCH" "$DEFFCONFIG"
     if [ "$BuilderKernel" == "gcc" ];then
@@ -378,15 +378,15 @@ MakeZip(){
 pullLmk(){
     cd $kernelDir
     git reset --hard $HeadCommitId
-    git pull --no-commit origin 20210216/main-ALMK
-    git commit -s -m 'Pull branch 20210216/main-ALMK'
+    git pull --no-commit origin 20210228/main-ALMK
+    git commit -s -m 'Pull branch 20210228/main-ALMK'
     TypeBuild="ALMK"
 }
 pullSlmk(){
     cd $kernelDir
     git reset --hard $HeadCommitId
-    git pull --no-commit origin 20210216/main-SLMK
-    git commit -s -m 'Pull branch 20210216/main-SLMK'
+    git pull --no-commit origin 20210228/main-SLMK
+    git commit -s -m 'Pull branch 20210228/main-SLMK'
     TypeBuild="SLMK"
 }
 

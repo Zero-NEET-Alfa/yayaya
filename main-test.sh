@@ -264,7 +264,7 @@ CompileKernel(){
             )
         fi
     fi
-    rm -rf out # always remove out directory :V
+    # rm -rf out # always remove out directory :V
     BUILD_START=$(date +"%s")
     if [ ! -z "$DRONE_BUILD_NUMBER" ];then
         CIRCLE_BUILD_NUM="$DRONE_BUILD_NUMBER"
