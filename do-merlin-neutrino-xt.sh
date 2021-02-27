@@ -1,5 +1,5 @@
 #! /bin/bash
-branch="20210216/neutrino-xt"
+branch="20210228/qk-n"
 BuilderKernel="clang"
 # UseOldGcc="Y"
 . main-merlin.sh 'initial' 'full'
