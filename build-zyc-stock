@@ -41,7 +41,7 @@ function make_changes() {
 # cd $CurrFolder
 git reset --hard
 ListBranch=""
-for Files in do-stock-p do-stock-q do-stock-r
+for Files in do-stock-r
 do
     if [ "$TAGS" == "all" ];then
         if [[ -e ${Files}.sh ]];then

@@ -1,5 +1,5 @@
 #! /bin/bash
-branch="base-R"
+branch="lineage-18.1-R-wifitags"
 BuilderKernel="00000"
 
 if [ "$BuilderKernel" != "clang" ] && [ "$BuilderKernel" != "dtc" ] && [ "$BuilderKernel" != "gcc" ] ;then
