@@ -1,6 +1,6 @@
 #! /bin/bash
 branch="base-R"
-BuilderKernel="00000"
+BuilderKernel="clang"
 
 if [ "$BuilderKernel" != "clang" ] && [ "$BuilderKernel" != "dtc" ] && [ "$BuilderKernel" != "gcc" ] ;then
     exit;
