@@ -1,5 +1,5 @@
 #! /bin/bash
-branch="lineage-17.1"
+branch="lineage-17.1-P-wifitags"
 BuilderKernel="00000"
 
 if [ "$BuilderKernel" != "clang" ] && [ "$BuilderKernel" != "dtc" ] && [ "$BuilderKernel" != "gcc" ] ;then
@@ -10,7 +10,7 @@ fi
 Author="ZyCromerZ"
 FolderUp="keqing-drive"
 spectrumFile="None"
-TypeBuild="Stable"
+TypeBuild="P-WIFI"
 TypeBuildTag="AOSP"
 getInfo ">> Building kernel . . . . <<"
 
