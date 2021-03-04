@@ -1,6 +1,6 @@
 #! /bin/bash
 branch="lineage-17.1-P-wifitags"
-BuilderKernel="00000"
+BuilderKernel="clang"
 
 if [ "$BuilderKernel" != "clang" ] && [ "$BuilderKernel" != "dtc" ] && [ "$BuilderKernel" != "gcc" ] ;then
     exit;
