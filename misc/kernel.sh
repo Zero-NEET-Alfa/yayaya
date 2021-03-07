@@ -26,7 +26,7 @@ if [ ! -z "$1" ];then
 else    
     getInfoErr "KernelRepo is missing :/"
     [ ! -z "${DRONE_BRANCH}" ] && . $MainPath/misc/bot.sh "send_info" "<b>❌ Build failed</b>%0ABranch : <b>$branch</b%0A%0ASad Boy"
-    exit 1
+    # exit 1
 fi
 
 CloneKernel(){
@@ -94,7 +94,7 @@ CompileClangKernel(){
     if [[ ! -e $KernelPath/out/arch/$ARCH/boot/Image.gz-dtb ]];then
         MSG="<b>❌ Build failed</b>%0ABranch : <b>$branch</b>%0A- <code>$((DIFF / 60)) minute(s) $((DIFF % 60)) second(s)</code>%0A%0ASad Boy"
         . $MainPath/misc/bot.sh "send_info" "$MSG"
-        exit 1
+        # exit 1
     fi
     cp -af $KernelPath/out/arch/$ARCH/boot/Image.gz-dtb $AnyKernelPath
     KName=$(cat "$(pwd)/arch/$ARCH/configs/$DEFFCONFIG" | grep "CONFIG_LOCALVERSION=" | sed 's/CONFIG_LOCALVERSION="-*//g' | sed 's/"*//g' )
@@ -126,7 +126,7 @@ CompileGccKernel(){
     if [[ ! -e $KernelPath/out/arch/$ARCH/boot/Image.gz-dtb ]];then
         MSG="<b>❌ Build failed</b>%0ABranch : <b>$branch</b>%0A- <code>$((DIFF / 60)) minute(s) $((DIFF % 60)) second(s)</code>%0A%0ASad Boy"
         . $MainPath/misc/bot.sh "send_info" "$MSG"
-        exit 1
+        # exit 1
     fi
     cp -af $KernelPath/out/arch/$ARCH/boot/Image.gz-dtb $AnyKernelPath
     KName=$(cat "$(pwd)/arch/$ARCH/configs/$DEFFCONFIG" | grep "CONFIG_LOCALVERSION=" | sed 's/CONFIG_LOCALVERSION="-*//g' | sed 's/"*//g' )
