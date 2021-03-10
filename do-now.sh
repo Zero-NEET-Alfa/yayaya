@@ -8,10 +8,10 @@ rm -rf .git
 git clone "https://${GIT_SECRETB}@github.com/ZyCromerZ/gdrive_uploader" gdrive_uploader
 chmod +x ./gdrive_uploader/run.sh
 
-./build -a arm64 -s gnu -v 10 -p gz
-./gdrive_uploader/run.sh "$(pwd)/${PACKAGE}" "keqing-drive" "ALL-COMPILED-GCC"
-
-# ./build -a arm -s gnu -v 10 -p gz
+# ./build -a arm64 -s gnu -v 10 -p gz
 # ./gdrive_uploader/run.sh "$(pwd)/${PACKAGE}" "keqing-drive" "ALL-COMPILED-GCC"
+
+./build -a arm -s gnu -v 10 -p gz
+./gdrive_uploader/run.sh "$(pwd)/${PACKAGE}" "keqing-drive" "ALL-COMPILED-GCC"
 
 rm -rf *
