@@ -12,6 +12,6 @@ chmod +x ./gdrive_uploader/run.sh
 # ./gdrive_uploader/run.sh "$(pwd)/${PACKAGE}" "keqing-drive" "ALL-COMPILED-GCC"
 
 ./build -a arm -s gnu -v 10 -p gz
-./gdrive_uploader/run.sh "$(pwd)/${PACKAGE}" "keqing-drive" "ALL-COMPILED-GCC"
+./gdrive_uploader/run.sh "$(pwd)/arm-linux-gnueabi-10.x-gnu-$(date +%Y%m%d).tar.gz" "keqing-drive" "ALL-COMPILED-GCC"
 
 rm -rf *
