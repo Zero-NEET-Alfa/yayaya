@@ -14,4 +14,14 @@ cd gdrive_uploader
 . run.sh "$FILE" "gcc-drive" "ALL-COMPILED-GCC"
 cd ..
 
+GCCType="arm-linux-gnueabi"
+if [[ -d "${GCCType}" ]] && [[ -e "${GCCType}/bin/${GCCType}-gcc" ]];then
+    GCCVer="$(./${GCCType}/bin/${GCCType}-gcc --version | head -n 1)"
+    GCCLink="https://gcc-drive.zyc-files.workers.dev/0:/${GCCType}-10.x-gnu-$(date +%Y%m%d).tar.gz"
+    curl -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" -d chat_id="-1001150624898" \
+        -d "disable_web_page_preview=true" \
+        -d "parse_mode=html" \
+        -d text="New Toolchain Already Builded boy%0ADate : <code>$(date +"%Y-%m-%d")</code>%0AGCC version : <code>${GCCVer}</code>%0ALink downloads : <code>${GCCVer}</code>%0A%0A-- uWu --"
+fi
+
 rm -rf *
