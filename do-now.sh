@@ -17,7 +17,7 @@ cd ..
 GCCType="arm-linux-gnueabi"
 if [[ -d "${GCCType}" ]] && [[ -e "${GCCType}/bin/${GCCType}-gcc" ]];then
     GCCVer="$(./${GCCType}/bin/${GCCType}-gcc --version | head -n 1)"
-    GCCLink="https://gcc-drive.zyc-files.workers.dev/0:/${GCCType}-10.x-gnu-$(date +%Y%m%d).tar.gz"
+    GCCLink="https://gcc-drive.zyc-files.workers.dev/0:/${GCCType}-11.x-gnu-$(date +%Y%m%d).tar.gz"
     curl -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" -d chat_id="-1001150624898" \
         -d "disable_web_page_preview=true" \
         -d "parse_mode=html" \
