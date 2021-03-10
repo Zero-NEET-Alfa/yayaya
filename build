@@ -660,14 +660,20 @@ function install_gcc() {
 
 # Make readme.md about GCC
 function add_readme() {
-    echo "# quick INFO ${TARGET}"> "${TARGET}/readme.md"
+    echo "# Quick Info ${TARGET}"> "${TARGET}/readme.md"
     echo "* Compiled with :" >> "${TARGET}/readme.md"
     echo "  * BINUTILS version: ${BINUTILS_tar}" >> "${TARGET}/readme.md"
+    echo "${BINUTILS_tar}" >> "${TARGET}/../.BINUTILS.versionNya"
     echo "  * GMP version: ${GMP}" >> "${TARGET}/readme.md"
+    echo "${GMP}" >> "${TARGET}/../.GMP.versionNya"
     echo "  * MPFR version: ${MPFR}" >> "${TARGET}/readme.md"
+    echo "${MPFR}" >> "${TARGET}/../.MPFR.versionNya"
     echo "  * MPC version: ${MPC}" >> "${TARGET}/readme.md"
+    echo "${MPC}" >> "${TARGET}/../.MPC.versionNya"
     echo "  * ISL version: ${ISL}" >> "${TARGET}/readme.md"
+    echo "${ISL}" >> "${TARGET}/../.ISL.versionNya"
     echo "  * GCLIB version: ${GLIBC}" >> "${TARGET}/readme.md"
+    echo "${GLIBC}" >> "${TARGET}/../.GCLIB.versionNya"
 }
 
 # Package toolchain
