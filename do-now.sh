@@ -9,12 +9,12 @@ git clone "https://${GIT_SECRET}@github.com/ZyCromerZ/gdrive_uploader" gdrive_up
 chmod +x ./gdrive_uploader/run.sh
 
 ./build -a arm -s gnu -v 11 -p gz
-FILE="$(pwd)/arm-linux-gnueabi-11.x-gnu-$(date +%Y%m%d).tar.gz"
+FILE="$(pwd)/arm-zyc-linux-gnueabi-11.x-gnu-$(date +%Y%m%d).tar.gz"
 cd gdrive_uploader
-. run.sh "$FILE" "gcc-drive" "ALL-COMPILED-GCC"
+. run.sh "$FILE" "gcc-drive"
 cd ..
 
-GCCType="arm-linux-gnueabi"
+GCCType="arm-zyc-linux-gnueabi"
 if [[ -d "${GCCType}" ]] && [[ -e "${GCCType}/bin/${GCCType}-gcc" ]];then
     GCCVer="$(./${GCCType}/bin/${GCCType}-gcc --version | head -n 1)"
     GCCLink="https://gcc-drive.zyc-files.workers.dev/0:/${GCCType}-11.x-gnu-$(date +%Y%m%d).tar.gz"

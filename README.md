@@ -62,10 +62,10 @@ toolchain in):
 
 ```bash
 # for arm64
-export CROSS_COMPILE=$(pwd)/bin/aarch64-linux-gnu-
+export CROSS_COMPILE=$(pwd)/bin/aarch64-zyc-linux-gnu-
 
 # for arm
-export CROSS_COMPILE=$(pwd)/bin/arm-linux-gnueabi-
+export CROSS_COMPILE=$(pwd)/bin/arm-zyc-linux-gnueabi-
 ```
 
 
