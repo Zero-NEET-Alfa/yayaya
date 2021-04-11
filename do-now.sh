@@ -20,10 +20,10 @@ mkdir uhuyFiles
 cd uhuyFiles
 git init
 git checkout -b $GCCType-11.x-gnu-$(date +%Y%m%d)
-cp -af $GCCType-11.x-gnu-$(date +%Y%m%d)/readme.md readme.md
+cp -af $GCCType/readme.md readme.md
 echo '' >> readme.md
 echo "link downloads: <a href='https://github.com/ZyCromerZ/compiled-gcc/releases/download/v$GCCType-11.x-gnu-$(date +%Y%m%d)/$GCCType-11.x-gnu-$(date +%Y%m%d).tar.gz'>here</a>" >> readme.md
-git add . && git commit -s -m 'upload $GCCType-11.x-gnu-$(date +%Y%m%d)'
+git add . && git commit -s -m "upload $GCCType-11.x-gnu-$(date +%Y%m%d)"
 git tags v$GCCType-11.x-gnu-$(date +%Y%m%d)
 git push -f https://${GIT_SECRET}@github.com/ZyCromerZ/compiled-gcc v$GCCType-11.x-gnu-$(date +%Y%m%d)
 git push -f https://${GIT_SECRET}@github.com/ZyCromerZ/compiled-gcc $GCCType-11.x-gnu-$(date +%Y%m%d)
