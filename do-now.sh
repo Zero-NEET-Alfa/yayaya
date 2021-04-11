@@ -9,8 +9,8 @@ rm -rf .git
 # chmod +x ./gdrive_uploader/run.sh
 GCCType="arm-zyc-linux-gnueabi"
 
-./build -a arm -s gnu -v 11 -p gz
-FILE="$(pwd)/$GCCType-11.x-gnu-$(date +%Y%m%d).tar.gz"
+./build -a arm -s gnu -v 10 -p gz
+FILE="$(pwd)/$GCCType-10.x-gnu-$(date +%Y%m%d).tar.gz"
 # cd gdrive_uploader
 # . run.sh "$FILE" "gcc-drive"
 # cd ..
@@ -19,34 +19,34 @@ export GITHUB_TOKEN="${GIT_SECRET}"
 mkdir uhuyFiles
 cd uhuyFiles
 git init
-git checkout -b $GCCType-11.x-gnu-$(date +%Y%m%d)
-cp -af $GCCType-11.x-gnu-$(date +%Y%m%d)/readme.md readme.md
+git checkout -b $GCCType-10.x-gnu-$(date +%Y%m%d)
+cp -af $GCCType-10.x-gnu-$(date +%Y%m%d)/readme.md readme.md
 echo '' >> readme.md
-echo "link downloads: <a href='https://github.com/ZyCromerZ/compiled-gcc/releases/download/v$GCCType-11.x-gnu-$(date +%Y%m%d)/$GCCType-11.x-gnu-$(date +%Y%m%d).tar.gz'>here</a>" >> readme.md
-git add . && git commit -s -m 'upload $GCCType-11.x-gnu-$(date +%Y%m%d)'
-git tags v$GCCType-11.x-gnu-$(date +%Y%m%d)
-git push -f https://${GIT_SECRET}@github.com/ZyCromerZ/compiled-gcc v$GCCType-11.x-gnu-$(date +%Y%m%d)
-git push -f https://${GIT_SECRET}@github.com/ZyCromerZ/compiled-gcc $GCCType-11.x-gnu-$(date +%Y%m%d)
+echo "link downloads: <a href='https://github.com/ZyCromerZ/compiled-gcc/releases/download/v$GCCType-10.x-gnu-$(date +%Y%m%d)/$GCCType-10.x-gnu-$(date +%Y%m%d).tar.gz'>here</a>" >> readme.md
+git add . && git commit -s -m 'upload $GCCType-10.x-gnu-$(date +%Y%m%d)'
+git tags v$GCCType-10.x-gnu-$(date +%Y%m%d)
+git push -f https://${GIT_SECRET}@github.com/ZyCromerZ/compiled-gcc v$GCCType-10.x-gnu-$(date +%Y%m%d)
+git push -f https://${GIT_SECRET}@github.com/ZyCromerZ/compiled-gcc $GCCType-10.x-gnu-$(date +%Y%m%d)
 cd ..
 
 chmod +x github-release
 ./github-release release \
     --user ZyCromerZ \
     --repo compiled-gcc \
-    --tag v$GCCType-11.x-gnu-$(date +%Y%m%d) \
-    --name "$GCCType-11.x-gnu-$(date +%Y%m%d)" \
+    --tag v$GCCType-10.x-gnu-$(date +%Y%m%d) \
+    --name "$GCCType-10.x-gnu-$(date +%Y%m%d)" \
     --description "compiled date: $(date +%Y-%m-%d) "
 
 ./github-release upload \
     --user ZyCromerZ \
     --repo compiled-gcc \
-    --tag v$GCCType-11.x-gnu-$(date +%Y%m%d) \
-    --name "$GCCType-11.x-gnu-$(date +%Y%m%d).tar.gz" \
+    --tag v$GCCType-10.x-gnu-$(date +%Y%m%d) \
+    --name "$GCCType-10.x-gnu-$(date +%Y%m%d).tar.gz" \
     --file "$FILE"
 
 if [[ -d "${GCCType}" ]] && [[ -e "${GCCType}/bin/${GCCType}-gcc" ]];then
     GCCVer="$(./${GCCType}/bin/${GCCType}-gcc --version | head -n 1)"
-    GCCLink="https://github.com/ZyCromerZ/compiled-gcc/releases/download/v$GCCType-11.x-gnu-$(date +%Y%m%d)/$GCCType-11.x-gnu-$(date +%Y%m%d).tar.gz"
+    GCCLink="https://github.com/ZyCromerZ/compiled-gcc/releases/download/v$GCCType-10.x-gnu-$(date +%Y%m%d)/$GCCType-10.x-gnu-$(date +%Y%m%d).tar.gz"
     curl -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" -d chat_id="-1001150624898" \
         -d "disable_web_page_preview=true" \
         -d "parse_mode=html" \
