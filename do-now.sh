@@ -8,9 +8,9 @@ addBranch()
     git fetch origin $1
     git checkout FETCH_HEAD && git checkout -b $1
 }
-git clone https://github.com/ZyCromerZ/android_kernel_xiaomi_vayu -b 11-upstream $KERNEL
+git clone https://${GIT_SECRET}@github.com/ZyCromerZ/vayu_kernel -b 20210812/main-prepare $KERNEL
 cd $KERNEL
-git remote add myrepo https://${GIT_SECRET}@github.com/ZyCromerZ/vayu_kernel
+git remote add myrepo https://${GIT_SECRET}@github.com/ZyCromerZ/vayu
 
 git push -f myrepo --all
 cd ..
