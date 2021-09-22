@@ -1,5 +1,5 @@
 #! /bin/bash
-KernelBranch="q-oss-base"
+KernelBranch="q-oss-base-mod"
 
 IncludeFiles "${MainPath}/device/begonia-q-oss.sh"
 CustomUploader="Y"
@@ -18,10 +18,10 @@ CloneCompiledGccTwelve
 # CompileClangKernel && CleanOut
 CloneProtonClang
 CompileClangKernel && CleanOut
-CloneDTCClang
+# CloneDTCClang
 # PullSlmk
-CompileClangKernel && CleanOut
-CompileGccKernel && CleanOut
+# CompileClangKernel && CleanOut
+# CompileGccKernel && CleanOut
 # CompileGccKernel
 
 # cleanup stuff after done
