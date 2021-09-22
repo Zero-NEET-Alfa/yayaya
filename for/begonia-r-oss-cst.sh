@@ -18,11 +18,11 @@ CloneCompiledGccTwelve
 # CompileClangKernel && CleanOut
 CloneProtonClang
 CompileClangKernel && CleanOut
-CloneDTCClang
+# CloneDTCClang
 # PullSlmk
-CompileClangKernel && CleanOut
+# CompileClangKernel && CleanOut
 # CompileGccKernel && CleanOut
-CompileGccKernel
+# CompileGccKernel
 
 # cleanup stuff after done
 cd "${MainPath}"
