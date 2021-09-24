@@ -1,4 +1,4 @@
-name: Building new GCC
+name: Building new GCC aarch64-zyc-linux-gnu
 
 on: [push]
 
@@ -18,4 +18,4 @@ jobs:
         BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
       run: |
         chmod +x do-now.sh
-        #bash do-now.sh "aarch64-zyc-linux-gnu" "12" "arm64" "nozip"
+        bash do-now.sh "aarch64-zyc-linux-gnu" "11" "arm64" "nozip"
