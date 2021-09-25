@@ -24,7 +24,7 @@ fi
 FILE="$(pwd)/$GCCType-${GCCVersion}.x-gnu-$(date +%Y%m%d).tar.gz"
 # cd gdrive_uploader
 
-if [[ ! -z "${4}" ]] && [[ "${4}" == "nozip" ]];then
+if [[ -z "${4}" ]] || [[ "${4}" != "nozip" ]];then
     mkdir uhuyFiles
     cd uhuyFiles
     git init
@@ -85,7 +85,7 @@ if [[ ! -z "${4}" ]] && [[ "${4}" == "nozip" ]];then
         curl -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" -d chat_id="-1001150624898" \
             -d "disable_web_page_preview=true" \
             -d "parse_mode=html" \
-            -d text="New Toolchain Already Builded boy%0ADate : <code>$(date +"%Y-%m-%d")</code>%0A<code> --- Detail Info About it --- </code>%0AGCC version : <code>${GCCVer}</code>%0ABINUTILS version : <code>$(cat ".BINUTILS.versionNya")</code>%0AGMP version : <code>$(cat ".GMP.versionNya")</code>%0AMPFR version : <code>$(cat ".MPFR.versionNya")</code>%0AMPC version : <code>$(cat ".MPC.versionNya")</code>%0AISL version : <code>$(cat ".ISL.versionNya")</code>%0AGCLIB version : <code>$(cat ".GCLIB.versionNya")</code>%0A%0A-- uWu --"
+            -d text="New Toolchain Already Builded boy%0ADate : <code>$(date +"%Y-%m-%d")</code>%0A<code> --- Detail Info About it --- </code>%0AGCC version : <code>${GCCVer}</code>%0ABINUTILS version : <code>$(cat ".BINUTILS.versionNya")</code>%0AGMP version : <code>$(cat ".GMP.versionNya")</code>%0AMPFR version : <code>$(cat ".MPFR.versionNya")</code>%0AMPC version : <code>$(cat ".MPC.versionNya")</code>%0AISL version : <code>$(cat ".ISL.versionNya")</code>%0AGCLIB version : <code>$(cat ".GCLIB.versionNya")</code>%0A%0AGCC Link : <code>https://github.com/ZyCromerZ/${GCCType}</code>%0A%0A-- uWu --"
     fi
 fi
 
