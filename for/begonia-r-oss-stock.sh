@@ -1,5 +1,5 @@
 #! /bin/bash
-KernelBranch="r-oss-up"
+KernelBranch="r-oss"
 
 IncludeFiles "${MainPath}/device/begonia-r-oss.sh"
 CustomUploader="Y"
