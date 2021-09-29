@@ -52,67 +52,67 @@ if [ -f recovery/out/target/product/begonia/recovery.img ];then
     rm -rf $MAINPATH/recovery/out/target/product/begonia/recovery.img $MAINPATH/recovery/out/target/product/begonia/$ZipName
 fi
 
-cd "$MAINPATH/recovery/device/redmi/begonia"
+# cd "$MAINPATH/recovery/device/redmi/begonia"
 
-git reset --hard HEAD~1
-cd "$MAINPATH/recovery"
+# git reset --hard HEAD~1
+# cd "$MAINPATH/recovery"
 
-export ALLOW_MISSING_DEPENDENCIES=true
-ALLOW_MISSING_DEPENDENCIES=true
+# export ALLOW_MISSING_DEPENDENCIES=true
+# ALLOW_MISSING_DEPENDENCIES=true
 
-. build/envsetup.sh
+# . build/envsetup.sh
 
-lunch twrp_begonia-eng
+# lunch twrp_begonia-eng
 
-repo sync -j$(nproc --all)
+# repo sync -j$(nproc --all)
 
-mka recoveryimage -j$(nproc --all)
+# mka recoveryimage -j$(nproc --all)
 
-cd ..
+# cd ..
 
-cd recovery/out/target/product/begonia
-ZipName="[$(date +"%Y%m%d")][2]TWRP-begonia-miui-12.5.zip"
-zip -r9 $ZipName recovery.img
-cd "$MAINPATH"
+# cd recovery/out/target/product/begonia
+# ZipName="[$(date +"%Y%m%d")][2]TWRP-begonia-miui-12.5.zip"
+# zip -r9 $ZipName recovery.img
+# cd "$MAINPATH"
 
-if [ -f recovery/out/target/product/begonia/recovery.img ];then
-    cp -af recovery/out/target/product/begonia/recovery.img recovery/out/target/product/begonia/recovery2.img
-    git clone https://${GIT_SECRET}@github.com/ZyCromerZ/uploader-kernel-private
-    cd uploader-kernel-private
-    chmod +x ./run.sh
-    . ./run.sh "$MAINPATH/recovery/out/target/product/begonia/recovery2.img" "shared-file" "$(date +"%Y-%m-%d")"
-    . ./run.sh "$MAINPATH/recovery/out/target/product/begonia/$ZipName" "shared-file" "$(date +"%Y-%m-%d")"
-fi
-cd "$MAINPATH/recovery/device/redmi/begonia"
+# if [ -f recovery/out/target/product/begonia/recovery.img ];then
+#     cp -af recovery/out/target/product/begonia/recovery.img recovery/out/target/product/begonia/recovery2.img
+#     git clone https://${GIT_SECRET}@github.com/ZyCromerZ/uploader-kernel-private
+#     cd uploader-kernel-private
+#     chmod +x ./run.sh
+#     . ./run.sh "$MAINPATH/recovery/out/target/product/begonia/recovery2.img" "shared-file" "$(date +"%Y-%m-%d")"
+#     . ./run.sh "$MAINPATH/recovery/out/target/product/begonia/$ZipName" "shared-file" "$(date +"%Y-%m-%d")"
+# fi
+# cd "$MAINPATH/recovery/device/redmi/begonia"
 
-git reset --hard HEAD~1
-cd "$MAINPATH/recovery"
+# git reset --hard HEAD~1
+# cd "$MAINPATH/recovery"
 
-export ALLOW_MISSING_DEPENDENCIES=true
-ALLOW_MISSING_DEPENDENCIES=true
+# export ALLOW_MISSING_DEPENDENCIES=true
+# ALLOW_MISSING_DEPENDENCIES=true
 
-. build/envsetup.sh
+# . build/envsetup.sh
 
-lunch twrp_begonia-eng
+# lunch twrp_begonia-eng
 
-repo sync -j$(nproc --all)
+# repo sync -j$(nproc --all)
 
-mka recoveryimage -j$(nproc --all)
+# mka recoveryimage -j$(nproc --all)
 
-cd ..
+# cd ..
 
-cd recovery/out/target/product/begonia
-ZipName="[$(date +"%Y%m%d")][3]TWRP-begonia-miui-12.5.zip"
-zip -r9 $ZipName recovery.img
-cd "$MAINPATH"
+# cd recovery/out/target/product/begonia
+# ZipName="[$(date +"%Y%m%d")][3]TWRP-begonia-miui-12.5.zip"
+# zip -r9 $ZipName recovery.img
+# cd "$MAINPATH"
 
-if [ -f recovery/out/target/product/begonia/recovery.img ];then
-    cp -af recovery/out/target/product/begonia/recovery.img recovery/out/target/product/begonia/recovery3.img
-    git clone https://${GIT_SECRET}@github.com/ZyCromerZ/uploader-kernel-private
-    cd uploader-kernel-private
-    chmod +x ./run.sh
-    . ./run.sh "$MAINPATH/recovery/out/target/product/begonia/recovery3.img" "shared-file" "$(date +"%Y-%m-%d")"
-    . ./run.sh "$MAINPATH/recovery/out/target/product/begonia/$ZipName" "shared-file" "$(date +"%Y-%m-%d")"
-fi
+# if [ -f recovery/out/target/product/begonia/recovery.img ];then
+#     cp -af recovery/out/target/product/begonia/recovery.img recovery/out/target/product/begonia/recovery3.img
+#     git clone https://${GIT_SECRET}@github.com/ZyCromerZ/uploader-kernel-private
+#     cd uploader-kernel-private
+#     chmod +x ./run.sh
+#     . ./run.sh "$MAINPATH/recovery/out/target/product/begonia/recovery3.img" "shared-file" "$(date +"%Y-%m-%d")"
+#     . ./run.sh "$MAINPATH/recovery/out/target/product/begonia/$ZipName" "shared-file" "$(date +"%Y-%m-%d")"
+# fi
 cd "$MAINPATH"
 rm -rf *
