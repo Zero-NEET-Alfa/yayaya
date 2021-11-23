@@ -22,6 +22,11 @@ else
     exit
 fi
 
+if [[ -z "${GIT_SECRET}" ]] || [[ -z "${BOT_TOKEN}" ]];then
+    msg "something is missing, aborting . . ."
+    exit
+fi
+
 ./build-llvm.py \
 	--clang-vendor "ZyC" \
 	--targets "ARM;AArch64;X86" \
