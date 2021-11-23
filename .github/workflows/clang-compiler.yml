@@ -26,53 +26,25 @@ jobs:
 
     - name: Preparing
       run: |
-        export DEBIAN_FRONTEND=noninteractive
-        export PATH=/usr/bin/core_perl:$PATH
-        export TZ=Asia/Jakarta
-        sudo ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-        sudo apt-get -y update && apt-get -y upgrade && apt-get -y install git libxml2 python3-pip default-jre tzdata
-        sudo apt-get -y install gcc llvm lld g++-multilib clang python3 python3-pip default-jre
-        sudo apt-get -y update && apt-get -y upgrade && apt-get -y install git automake lzop bison gperf build-essential zip curl zlib1g-dev g++-multilib libxml2-utils bzip2 libbz2-dev libbz2-1.0 libghc-bzlib-dev squashfs-tools pngcrush schedtool dpkg-dev liblz4-tool make optipng bc libstdc++6 libncurses5 wget python3 python3-pip python gcc clang libssl-dev rsync flex git-lfs libz3-dev libz3-4 axel tar && python3 -m pip  install networkx
-        sudo apt-get install -y --no-install-recommends \
-        bc \
-        bison \
-        ca-certificates \
-        clang \
-        cmake \
-        curl \
-        file \
-        flex \
-        gcc \
-        g++ \
-        git \
-        libelf-dev \
-        libssl-dev \
-        lld \
-        make \
-        ninja-build \
-        python3 \
-        texinfo \
-        xz-utils \
-        zlib1g-dev
+        sudo bash ci.sh deps
 
     - name: Build LLVM
       run: |
-        export DEBIAN_FRONTEND=noninteractive
         export PATH=/usr/bin/core_perl:$PATH
         export GIT_SSL_NO_VERIFY=1
         git config --global http.sslverify false
         ./build-llvm.py \
             --clang-vendor "ZyC" \
-            --targets "ARM;AArch64;X86" \
+            --targets "ARM;AArch64" \
             --defines "LLVM_PARALLEL_COMPILE_JOBS=4 LLVM_PARALLEL_LINK_JOBS=4 CMAKE_C_FLAGS=-O3 CMAKE_CXX_FLAGS=-O3 LLVM_USE_LINKER=lld LLVM_ENABLE_LLD=ON" \
             --pgo kernel-defconfig \
-            --lto full \
+            --lto thin \
             --shallow-clone \
             --branch "main"
 
     - name: Build Binutils
       run: |
-        ./build-binutils.py --targets arm aarch64 x86_64
+        ./build-binutils.py --targets arm aarch64
 
     - name: Rmove unused products
       run: |

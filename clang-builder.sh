@@ -29,10 +29,10 @@ fi
 
 ./build-llvm.py \
 	--clang-vendor "ZyC" \
-	--targets "ARM;AArch64;X86" \
+	--targets "ARM;AArch64" \
 	--defines "LLVM_PARALLEL_COMPILE_JOBS=$(nproc) LLVM_PARALLEL_LINK_JOBS=$(nproc) CMAKE_C_FLAGS=-O3 CMAKE_CXX_FLAGS=-O3 LLVM_USE_LINKER=lld LLVM_ENABLE_LLD=ON" \
 	--pgo kernel-defconfig \
-	--lto full \
+	--lto thin \
 	--shallow-clone \
     --branch "$UseBranch"
 
@@ -40,7 +40,7 @@ fi
 # Build binutils
 msg "Building binutils..."
 BIN_START=$(date +"%s")
-./build-binutils.py --targets arm aarch64 x86_64
+./build-binutils.py --targets arm aarch64
 
 # Remove unused products
 rm -fr install/include
