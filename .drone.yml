@@ -11,7 +11,7 @@ steps:
       - "export DEBIAN_FRONTEND=noninteractive"
       - "export PATH=/usr/bin/core_perl:$PATH"
       - "bash ci.sh deps"
-      - "bash clang-builder.sh :v"
+      - "bash clang-builder.sh 14"
     environment: 
       BOT_TOKEN:
         from_secret: BOT_TOKEN
