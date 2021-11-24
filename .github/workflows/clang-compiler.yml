@@ -68,7 +68,7 @@ jobs:
 
     - name: Clone exiting TC
       run: |
-        git clone https://${GIT_SECRET}@github.com/ZyCromerZ/Clang -b $CloneTo $(pwd)/FromGithub
+        git clone https://${GIT_SECRET}@github.com/ZyCromerZ/Clang -b 14 $(pwd)/FromGithub
 
     - name: Upload TC
       run: |
