@@ -22,4 +22,4 @@ jobs:
         export PATH=/usr/bin/core_perl:$PATH
         cp -af kernel/build-mod.sh kernel/build.sh
         bash ci.sh deps
-        bash clang-builder.sh 14 gi
+        bash clang-builder.sh :v gi
