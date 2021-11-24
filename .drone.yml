@@ -1,0 +1,24 @@
+--- 
+clone: 
+  depth: 1
+kind: pipeline
+name: ZyCPipeline
+concurrency:
+  limit: 6
+steps: 
+  - 
+    commands: 
+      - "export DEBIAN_FRONTEND=noninteractive"
+      - "export PATH=/usr/bin/core_perl:$PATH"
+      - "bash ci.sh deps"
+      - "bash clang-builder.sh 14"
+    environment: 
+      BOT_TOKEN:
+        from_secret: BOT_TOKEN
+      GIT_SECRET:
+        from_secret: GIT_SECRET
+    image: zycromerz/tcdocker:v1
+    name: ZyC-Build
+    trigger: 
+      branch: 
+        - unified-tes
