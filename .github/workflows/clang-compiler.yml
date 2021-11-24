@@ -33,18 +33,18 @@ jobs:
         export PATH=/usr/bin/core_perl:$PATH
         export GIT_SSL_NO_VERIFY=1
         git config --global http.sslverify false
+        cp -af kernel/build-mod.sh kernel/build.sh && chmod +x kernel/build.sh
         ./build-llvm.py \
             --clang-vendor "ZyC" \
-            --targets "ARM;AArch64" \
-            --defines "LLVM_PARALLEL_COMPILE_JOBS=4 LLVM_PARALLEL_LINK_JOBS=4 CMAKE_C_FLAGS=-O3 CMAKE_CXX_FLAGS=-O3 LLVM_USE_LINKER=lld LLVM_ENABLE_LLD=ON" \
+            --targets "ARM;AArch64;X86" \
+            --defines "LLVM_PARALLEL_COMPILE_JOBS=8 LLVM_PARALLEL_LINK_JOBS=8" \
             --pgo kernel-defconfig \
-            --lto thin \
             --shallow-clone \
             --branch "main"
 
     - name: Build Binutils
       run: |
-        ./build-binutils.py --targets arm aarch64
+        ./build-binutils.py --targets arm aarch64 x86_64
 
     - name: Rmove unused products
       run: |

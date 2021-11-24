@@ -13,10 +13,10 @@ DIR="$(pwd ...)"
 
 if [ "${1}" == "13" ];then
     UseBranch="release/13.x"
-    CloneTo="13"
+    CloneTo="13.x"
 elif [ "${1}" == "14" ];then
     UseBranch="main"
-    CloneTo="14"
+    CloneTo="14.x"
 else
     msg "huh ???"
     exit
@@ -27,20 +27,18 @@ if [[ -z "${GIT_SECRET}" ]] || [[ -z "${BOT_TOKEN}" ]];then
     exit
 fi
 
+cp -af kernel/build-mod.sh kernel/build.sh && chmod +x kernel/build.sh
 ./build-llvm.py \
-	--clang-vendor "ZyC" \
-	--targets "ARM;AArch64" \
-	--defines "LLVM_PARALLEL_COMPILE_JOBS=$(nproc) LLVM_PARALLEL_LINK_JOBS=$(nproc) CMAKE_C_FLAGS=-O3 CMAKE_CXX_FLAGS=-O3 LLVM_USE_LINKER=lld LLVM_ENABLE_LLD=ON" \
-	--pgo kernel-defconfig \
-	--lto thin \
-	--shallow-clone \
+    --clang-vendor "ZyC" \
+    --targets "ARM;AArch64;X86" \
+    --defines "LLVM_PARALLEL_COMPILE_JOBS=8 LLVM_PARALLEL_LINK_JOBS=8" \
+    --pgo kernel-defconfig \
+    --shallow-clone \
     --branch "$UseBranch"
 
 
 # Build binutils
-msg "Building binutils..."
-BIN_START=$(date +"%s")
-./build-binutils.py --targets arm aarch64
+./build-binutils.py --targets arm aarch64 x86_64
 
 # Remove unused products
 rm -fr install/include
@@ -70,8 +68,9 @@ llvm_commit_url="https://github.com/llvm/llvm-project/commit/$short_llvm_commit"
 binutils_ver="$(ls | grep "^binutils-" | sed "s/binutils-//g")"
 clang_version="$(install/bin/clang --version | head -n1 | cut -d' ' -f4)"
 
-git clone https://${GIT_SECRET}@github.com/ZyCromerZ/Clang -b $CloneTo $(pwd)/FromGithub
+git clone https://${GIT_SECRET}@github.com/ZyCromerZ/Clang -b main $(pwd)/FromGithub
 pushd $(pwd)/FromGithub || exit
+git checkout -b $CloneTo
 rm -fr ./*
 cp -r ../install/* .
 echo "# Quick Info
