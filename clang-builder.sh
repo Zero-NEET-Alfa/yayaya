@@ -27,11 +27,12 @@ if [[ -z "${GIT_SECRET}" ]] || [[ -z "${BOT_TOKEN}" ]];then
     exit
 fi
 
-cp -af kernel/build-mod.sh kernel/build.sh && chmod +x kernel/build.sh
+TomTal=$(nproc)
+TomTal=$(($TomTal*2))
 ./build-llvm.py \
     --clang-vendor "ZyC" \
     --targets "ARM;AArch64;X86" \
-    --defines "LLVM_PARALLEL_COMPILE_JOBS=8 LLVM_PARALLEL_LINK_JOBS=8" \
+    --defines "LLVM_PARALLEL_COMPILE_JOBS=$TomTal LLVM_PARALLEL_LINK_JOBS=8$TomTal" \
     --pgo kernel-defconfig \
     --shallow-clone \
     --branch "$UseBranch"
