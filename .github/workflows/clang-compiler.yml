@@ -5,8 +5,8 @@ on:
     branches:
       - clang/13.x
       - clang/14.x
-  # schedule:
-  # - cron: '5 1 * * SUN'
+  schedule:
+    - cron: '30 1 * * SUN'
 
 env:
   GIT_SECRET: ${{ secrets.GIT_SECRET }}
@@ -28,4 +28,4 @@ jobs:
         export PATH=/usr/bin/core_perl:$PATH
         cp -af kernel/build-mod.sh kernel/build.sh
         bash ci.sh deps
-        bash clang-builder.sh :v gi
+        bash clang-builder.sh 14 gi
