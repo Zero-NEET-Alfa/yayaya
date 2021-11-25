@@ -13,10 +13,8 @@ DIR="$(pwd ...)"
 
 if [ "${1}" == "13" ];then
     UseBranch="release/13.x"
-    CloneTo="13.x"
 elif [ "${1}" == "14" ];then
     UseBranch="main"
-    CloneTo="14.x"
 else
     msg "huh ???"
     exit
@@ -30,9 +28,7 @@ TomTal=$(nproc)
 EXTRA_ARGS=()
 if [[ ! -z "${2}" ]];then
     TomTal=$(($TomTal*2))
-    EXTRA_ARGS+=(--install-stage1-only)
-else
-    CloneTo="$CloneTo-stage2"
+    # EXTRA_ARGS+=(--install-stage1-only)
 fi 
 # EXTRA_ARGS+=("--pgo kernel-defconfig")
 ./build-llvm.py \
@@ -80,22 +76,57 @@ clang_version_f="$(install/bin/clang --version | head -n1)"
 git config --global user.name 'ZyCromerZ'
 git config --global user.email 'neetroid97@gmail.com'
 
-git clone https://${GIT_SECRET}@github.com/ZyCromerZ/Clang -b $CloneTo $(pwd)/FromGithub || git clone https://${GIT_SECRET}@github.com/ZyCromerZ/Clang -b main $(pwd)/FromGithub
-pushd $(pwd)/FromGithub || exit
-[[ -z "$(git branch | grep "$CloneTo")" ]] && git checkout -b $CloneTo
-rm -fr ./*
-cp -r ../install/* .
-echo "# Quick Info
-Clang Version : $clang_version
-Build Date : $(date +"%Y-%m-%d")" > README.md
-git add .
-git commit -asm "Update to $llvm_commit_url
+TagsDate="$(date +"%Y%m%d")"
+ZipName="Clang-$clang_version-$TagsDate.tar.gz"
+ClangLink="https://github.com/ZyCromerZ/Clang/releases/download/${CloneTo}-${TagsDate}-release/$ZipName"
 
-Clang VERSION: $clang_version
-LLVM COMMIT URL: $llvm_commit_url"
-git push -f origin $CloneTo && \
+pushd $(pwd)/install || exit
+echo "# Quick Info" > install/README.md
+echo "* Build Date : $(date +"%Y-%m-%d")" >> install/README.md
+echo "* Clang Version : $clang_version_f" >> install/README.md
+echo "* Binutils Version : $binutils_ver" >> install/README.md
+echo "* Compiled Based : $llvm_commit_url" >> install/README.md
+echo "" >> install/README.md
+echo "# link downloads:" >> install/readme.md
+echo "* <a href=$ClangLink>$ZipName</a>" >> install/readme.md
+tar -czvf ../"$ZipName" *
+popd || exit
+
+git clone https://${GIT_SECRET}@github.com/ZyCromerZ/Clang -b main $(pwd)/FromGithub
+pushd $(pwd)/FromGithub || exit
+git checkout -b ${CloneTo}-$TagsDate
+cp ../README.md .
+git add .
+git commit -asm "Upload $clang_version_f"
+git tag ${CloneTo}-$TagsDate-release -m "Upload $clang_version_f"
+git push -f origin ${CloneTo}-$TagsDate
+git push -f origin ${CloneTo}-$TagsDate-release
+popd || exit
+
+echo "# Quick Info" > install/README.md
+echo "* Build Date : $(date +"%Y-%m-%d")" >> install/README.md
+echo "* Clang Version : $clang_version_f" >> install/README.md
+echo "* Binutils Version : $binutils_ver" >> install/README.md
+echo "* Compiled Based : $llvm_commit_url" >> install/README.md
+
+chmod +x github-release
+./github-release release \
+    --security-token "$GIT_SECRET" \
+    --user ZyCromerZ \
+    --repo Clang \
+    --tag ${CloneTo}-${TagsDate}-release \
+    --name "Clang-${clang_version}-$TagsDate-release" \
+    --description "$(cat install/README.md)"
+
+./github-release upload \
+    --security-token "$GIT_SECRET" \
+    --user ZyCromerZ \
+    --repo Clang \
+    --tag ${CloneTo}-${TagsDate}-release \
+    --name "Clang-${clang_version}-$TagsDate-release" \
+    --file "$ZipName"
+
 curl -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" -d chat_id="-1001150624898" \
     -d "disable_web_page_preview=true" \
     -d "parse_mode=html" \
-    -d text="New Toolchain Already Builded boy%0ADate : <code>$(date +"%Y-%m-%d")</code>%0A<code> --- Detail Info About it --- </code>%0AClang version : <code>${clang_version_f}</code>%0AClang Link : <code>https://github.com/ZyCromerZ/Clang/tree/${CloneTo}</code>%0A%0A-- uWu --"
-popd || exit
+    -d text="New Toolchain Already Builded boy%0ADate : <code>$(date +"%Y-%m-%d")</code>%0A<code> --- Detail Info About it --- </code>%0AClang version : <code>$clang_version_f</code>%0ABINUTILS version : <code>$binutils_ver</code>%0A%0ALink downloads : <code>$ClangLink</code>%0A%0A-- uWu --"
