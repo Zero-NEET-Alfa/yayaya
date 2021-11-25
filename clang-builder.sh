@@ -38,7 +38,7 @@ fi
 ./build-llvm.py \
     --clang-vendor "ZyC" \
     --targets "ARM;AArch64;X86" \
-    --defines "LLVM_PARALLEL_COMPILE_JOBS=$TomTal LLVM_PARALLEL_LINK_JOBS=$TomTal" \
+    --defines "LLVM_PARALLEL_COMPILE_JOBS=$TomTal LLVM_PARALLEL_LINK_JOBS=$TomTal CMAKE_C_FLAGS='-g0 -O3' CMAKE_CXX_FLAGS='-g0 -O3'" \
     --shallow-clone \
     --no-ccache \
     --branch "$UseBranch" \
