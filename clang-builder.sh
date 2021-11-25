@@ -27,14 +27,22 @@ if [[ -z "${GIT_SECRET}" ]] || [[ -z "${BOT_TOKEN}" ]];then
     exit
 fi
 TomTal=$(nproc)
-[[ ! -z "${2}" ]] && TomTal=$(($TomTal*2))
+EXTRA_ARGS=()
+if [[ ! -z "${2}" ]];then
+    TomTal=$(($TomTal*2))
+    EXTRA_ARGS+=(--install-stage1-only)
+else
+    CloneTo="$CloneTo-stage2"
+fi 
+# EXTRA_ARGS+=("--pgo kernel-defconfig")
 ./build-llvm.py \
     --clang-vendor "ZyC" \
     --targets "ARM;AArch64;X86" \
-    --defines "LLVM_PARALLEL_COMPILE_JOBS=$(nproc) LLVM_PARALLEL_LINK_JOBS=$(nproc)" \
-    --install-stage1-only \
+    --defines "LLVM_PARALLEL_COMPILE_JOBS=$TomTal LLVM_PARALLEL_LINK_JOBS=$TomTal" \
     --shallow-clone \
-    --branch "$UseBranch"
+    --no-ccache \
+    --branch "$UseBranch" \
+    "${EXTRA_ARGS[@]}"
 
 
 # Build binutils
@@ -85,7 +93,7 @@ git commit -asm "Update to $llvm_commit_url
 
 Clang VERSION: $clang_version
 LLVM COMMIT URL: $llvm_commit_url"
-git push -f && \
+git push -f origin $CloneTo && \
 curl -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" -d chat_id="-1001150624898" \
     -d "disable_web_page_preview=true" \
     -d "parse_mode=html" \

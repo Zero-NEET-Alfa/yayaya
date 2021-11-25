@@ -1,6 +1,12 @@
 name: Building new Clang
 
-on: [push]
+on: 
+  push:
+    branches:
+      - clang/13.x
+      - clang/14.x
+  # schedule:
+  # - cron: '5 1 * * SUN'
 
 env:
   GIT_SECRET: ${{ secrets.GIT_SECRET }}

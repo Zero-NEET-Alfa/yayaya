@@ -190,7 +190,7 @@ function build_kernels() {
             "arm-linux-gnueabi")
                 case ${CONFIG_TARGET} in
                     defconfig)
-                        CONFIGS=(multi_v5_defconfig aspeed_g5_defconfig multi_v7_defconfig)
+                        CONFIGS=(multi_v5_defconfig)
                         ;;
                     *)
                         CONFIGS=("${CONFIG_TARGET}")
