@@ -95,7 +95,7 @@ popd || exit
 git clone https://${GIT_SECRET}@github.com/ZyCromerZ/Clang -b main $(pwd)/FromGithub
 pushd $(pwd)/FromGithub || exit
 git checkout -b ${clang_version}-$TagsDate
-cp ../README.md .
+cp ../install/README.md .
 git add .
 git commit -asm "Upload $clang_version_f"
 git tag ${clang_version}-$TagsDate-release -m "Upload $clang_version_f"
@@ -123,7 +123,7 @@ chmod +x github-release
     --user ZyCromerZ \
     --repo Clang \
     --tag ${clang_version}-${TagsDate}-release \
-    --name "Clang-${clang_version}-$TagsDate-release" \
+    --name "$ZipName" \
     --file "$ZipName"
 
 curl -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" -d chat_id="-1001150624898" \
