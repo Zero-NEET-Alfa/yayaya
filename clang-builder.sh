@@ -78,7 +78,7 @@ git config --global user.email 'neetroid97@gmail.com'
 
 TagsDate="$(date +"%Y%m%d")"
 ZipName="Clang-$clang_version-$TagsDate.tar.gz"
-ClangLink="https://github.com/ZyCromerZ/Clang/releases/download/${CloneTo}-${TagsDate}-release/$ZipName"
+ClangLink="https://github.com/ZyCromerZ/Clang/releases/download/${clang_version}-${TagsDate}-release/$ZipName"
 
 pushd $(pwd)/install || exit
 echo "# Quick Info" > install/README.md
@@ -94,13 +94,13 @@ popd || exit
 
 git clone https://${GIT_SECRET}@github.com/ZyCromerZ/Clang -b main $(pwd)/FromGithub
 pushd $(pwd)/FromGithub || exit
-git checkout -b ${CloneTo}-$TagsDate
+git checkout -b ${clang_version}-$TagsDate
 cp ../README.md .
 git add .
 git commit -asm "Upload $clang_version_f"
-git tag ${CloneTo}-$TagsDate-release -m "Upload $clang_version_f"
-git push -f origin ${CloneTo}-$TagsDate
-git push -f origin ${CloneTo}-$TagsDate-release
+git tag ${clang_version}-$TagsDate-release -m "Upload $clang_version_f"
+git push -f origin ${clang_version}-$TagsDate
+git push -f origin ${clang_version}-$TagsDate-release
 popd || exit
 
 echo "# Quick Info" > install/README.md
@@ -114,7 +114,7 @@ chmod +x github-release
     --security-token "$GIT_SECRET" \
     --user ZyCromerZ \
     --repo Clang \
-    --tag ${CloneTo}-${TagsDate}-release \
+    --tag ${clang_version}-${TagsDate}-release \
     --name "Clang-${clang_version}-$TagsDate-release" \
     --description "$(cat install/README.md)"
 
@@ -122,7 +122,7 @@ chmod +x github-release
     --security-token "$GIT_SECRET" \
     --user ZyCromerZ \
     --repo Clang \
-    --tag ${CloneTo}-${TagsDate}-release \
+    --tag ${clang_version}-${TagsDate}-release \
     --name "Clang-${clang_version}-$TagsDate-release" \
     --file "$ZipName"
 
