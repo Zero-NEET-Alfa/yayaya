@@ -11,12 +11,12 @@ steps:
       - "export DEBIAN_FRONTEND=noninteractive"
       - "export PATH=/usr/bin/core_perl:$PATH"
       - "bash ci.sh deps"
-      - "bash clang-builder.sh :v"
+      - "bash clang-builder.sh 14"
     environment: 
       BOT_TOKEN:
         from_secret: BOT_TOKEN
-      GIT_SECRET:
-        from_secret: GIT_SECRET
+      GIT_SECRETB:
+        from_secret: GIT_SECRETB
     image: zycromerz/tcdocker:v1
     name: ZyC-Build
     trigger: 

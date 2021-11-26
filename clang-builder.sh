@@ -21,21 +21,21 @@ else
     exit
 fi
 
-if [[ -z "${GIT_SECRET}" ]] || [[ -z "${BOT_TOKEN}" ]];then
+if [[ -z "${GIT_SECRETB}" ]] || [[ -z "${BOT_TOKEN}" ]];then
     msg "something is missing, aborting . . ."
     exit
 fi
 
-wget https://raw.githubusercontent.com/ZyCromerZ/Clang/main/Clang-$EsOne-lastbuild.txt -O result.txt 1>/dev/null 2>/dev/null || echo 'blank' > result.txt
+# wget https://raw.githubusercontent.com/ZyCromerZ/Clang/main/Clang-$EsOne-lastbuild.txt -O result.txt 1>/dev/null 2>/dev/null || echo 'blank' > result.txt
 
-if [[ "$(cat result.txt)" == *"$(date +"%Y-%m-%d")"* ]];then
-    Stop="Y"
-    msg "Today Clang build already compiled"
-    exit
-# elif [[ "$(cat result.txt)" == "blank" ]];then
-#     Stop="N"
-fi
-rm -rf result.txt
+# if [[ "$(cat result.txt)" == *"$(date +"%Y-%m-%d")"* ]];then
+#     Stop="Y"
+#     msg "Today Clang build already compiled"
+#     exit
+# # elif [[ "$(cat result.txt)" == "blank" ]];then
+# #     Stop="N"
+# fi
+# rm -rf result.txt
 
 TomTal=$(nproc)
 EXTRA_ARGS=()
@@ -105,7 +105,7 @@ echo "* <a href=$ClangLink>$ZipName</a>" >> install/readme.md
 tar -czvf ../"$ZipName" *
 popd || exit
 
-git clone https://${GIT_SECRET}@github.com/ZyCromerZ/Clang -b main $(pwd)/FromGithub
+git clone https://${GIT_SECRETB}@github.com/ZyCromerZ/Clang -b main $(pwd)/FromGithub
 pushd $(pwd)/FromGithub || exit
 echo "$(date +"%Y-%m-%d")" > Clang-$EsOne-lastbuild.txt
 echo "$ClangLink" > Clang-$EsOne-link.txt
@@ -127,20 +127,45 @@ echo "* Compiled Based : $llvm_commit_url" >> install/README.md
 
 chmod +x github-release
 ./github-release release \
-    --security-token "$GIT_SECRET" \
+    --security-token "$GIT_SECRETB" \
     --user ZyCromerZ \
     --repo Clang \
     --tag ${clang_version}-${TagsDate}-release \
     --name "Clang-${clang_version}-$TagsDate-release" \
     --description "$(cat install/README.md)"
 
+fail="n"
 ./github-release upload \
-    --security-token "$GIT_SECRET" \
+    --security-token "$GIT_SECRETB" \
     --user ZyCromerZ \
     --repo Clang \
     --tag ${clang_version}-${TagsDate}-release \
     --name "$ZipName" \
-    --file "$ZipName"
+    --file "$ZipName" || fail="y"
+
+TotalTry="0"
+UploadAgain()
+{
+    fail="n"
+    ./github-release upload \
+        --security-token "$GIT_SECRETB" \
+        --user ZyCromerZ \
+        --repo Clang \
+        --tag ${clang_version}-${TagsDate}-release \
+        --name "$ZipName" \
+        --file "$ZipName" || fail="y"
+    TotalTry=$(($TotalTry+1))
+    if [ "$fail" == "y" ];then
+        if [ "$TotalTry" != "5" ];then
+            sleep 10s
+            UploadAgain
+        fi
+    fi
+}
+if [ "$fail" == "y" ];then
+    sleep 10s
+    UploadAgain
+fi
 
 curl -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" -d chat_id="-1001150624898" \
     -d "disable_web_page_preview=true" \
