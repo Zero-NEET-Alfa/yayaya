@@ -1,0 +1,47 @@
+name: Building new Clang
+
+# on:
+#   push:
+#     branches:
+#       - clang/*
+#   schedule:
+#     - cron: '15 1 * * *'
+
+env:
+  GIT_SECRET: ${{ secrets.GIT_SECRET }}
+  BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+
+jobs:
+  TigaLebas:
+
+    runs-on: ubuntu-latest
+
+    container: 
+      image: zycromerz/tcdocker:v1
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build TC
+      run: |
+        export DEBIAN_FRONTEND=noninteractive
+        export PATH=/usr/bin/core_perl:$PATH
+        cp -af kernel/build-mod.sh kernel/build.sh
+        bash ci.sh deps
+        bash clang-builder.sh 13 gi
+
+  EmpatLebas:
+
+    runs-on: ubuntu-latest
+
+    container: 
+      image: zycromerz/tcdocker:v1
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build TC
+      run: |
+        export DEBIAN_FRONTEND=noninteractive
+        export PATH=/usr/bin/core_perl:$PATH
+        cp -af kernel/build-mod.sh kernel/build.sh
+        bash ci.sh deps
+        bash clang-builder.sh 14 gi

@@ -10,10 +10,11 @@ git config --global http.sslverify false
 
 # Set a directory
 DIR="$(pwd ...)"
+EsOne="${1}"
 
-if [ "${1}" == "13" ];then
+if [ "$EsOne" == "13" ];then
     UseBranch="release/13.x"
-elif [ "${1}" == "14" ];then
+elif [ "$EsOne" == "14" ];then
     UseBranch="main"
 else
     msg "huh ???"
@@ -24,6 +25,18 @@ if [[ -z "${GIT_SECRET}" ]] || [[ -z "${BOT_TOKEN}" ]];then
     msg "something is missing, aborting . . ."
     exit
 fi
+
+wget https://raw.githubusercontent.com/ZyCromerZ/Clang/main/Clang-$EsOne-lastbuild.txt -O result.txt 1>/dev/null 2>/dev/null || echo 'blank' > result.txt
+
+if [[ "$(cat result.txt)" == *"$(date +"%Y-%m-%d")"* ]];then
+    Stop="Y"
+    msg "Today Clang build already compiled"
+    exit
+# elif [[ "$(cat result.txt)" == "blank" ]];then
+#     Stop="N"
+fi
+rm -rf result.txt
+
 TomTal=$(nproc)
 EXTRA_ARGS=()
 if [[ ! -z "${2}" ]];then
@@ -94,12 +107,15 @@ popd || exit
 
 git clone https://${GIT_SECRET}@github.com/ZyCromerZ/Clang -b main $(pwd)/FromGithub
 pushd $(pwd)/FromGithub || exit
+echo "$(date +"%Y-%m-%d")" > Clang-$EsOne-lastbuild.txt
+echo "$ClangLink" > Clang-$EsOne-link.txt
+git commit -asm "Upload $clang_version_f"
 git checkout -b ${clang_version}-$TagsDate
 cp ../install/README.md .
 git add .
 git commit -asm "Upload $clang_version_f"
 git tag ${clang_version}-$TagsDate-release -m "Upload $clang_version_f"
-git push -f origin ${clang_version}-$TagsDate
+git push -f origin main ${clang_version}-$TagsDate
 git push -f origin ${clang_version}-$TagsDate-release
 popd || exit
 
