@@ -25,6 +25,8 @@ if [ ! -z "$1" ];then
     [[ -z "$ImgName" ]] && ImgName="Image.gz-dtb"
     [[ -z "$UseDtb" ]] && UseDtb="n"
     [[ -z "$UseDtbo" ]] && UseDtbo="n"
+    for64=aarch64-linux-gnu-
+    for32=arm-linux-gnueabi-
 else    
     getInfoErr "KernelRepo is missing :/"
     [ ! -z "${DRONE_BRANCH}" ] && . $MainPath/misc/bot.sh "send_info" "<b>❌ Build failed</b>%0ABranch : <b>${KernelBranch}</b%0A%0ASad Boy"
