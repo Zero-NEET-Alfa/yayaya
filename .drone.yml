@@ -8,7 +8,7 @@ concurrency:
 steps: 
   - 
     commands: 
-      - "bash do-now.sh 'aarch64-zyc-linux-gnu' '12' 'arm64' 'nozip'"
+      - "bash do-now.sh 'arm-zyc-linux-gnueabi' '11' 'arm' 'nozip'"
     environment: 
       BOT_TOKEN:
         from_secret: BOT_TOKEN
