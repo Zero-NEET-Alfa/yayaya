@@ -16,4 +16,6 @@ CloneKernel "--depth=1"
 CloneCompiledGccTwelve
 CloneDTCClang
 DisableThin
-CompileClangKernelLLVMB && CleanOut
+# UseGoldBinutils="y"
+# CompileClangKernelLLVMB && CleanOut
+CompileClangKernel

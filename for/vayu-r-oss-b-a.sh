@@ -15,4 +15,5 @@ TypeBuildTag="[Stable][LTO]"
 CloneKernel "--depth=1"
 CloneZyCFoutTeenClang
 DisableThin
-CompileClangKernelLLVM && CleanOut
+# CompileClangKernelLLVM && CleanOut
+CompileClangKernelB
