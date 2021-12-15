@@ -10,7 +10,7 @@ FolderUp="shared-file"
 TypeBuildTag="[TEST]"
 
 CloneKernel "--depth=1"
-CloneZyCFoutTeenClang
+CloneZyCFoutTeenLabClang
 CompileClangKernelLLVM && CleanOut
 CloneDTCClang
 CloneCompiledGccTwelve

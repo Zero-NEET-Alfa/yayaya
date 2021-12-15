@@ -1,5 +1,5 @@
 #! /bin/bash
-KernelBranch="20210824/neutrino-flamescion-noKCAL"
+KernelBranch="20210824/neutrino-phantasm"
 
 IncludeFiles "${MainPath}/device/vayu-r-oss.sh"
 CustomUploader="Y"
@@ -13,8 +13,9 @@ TypeBuildTag="[Stable][ThinLTO][MPDCL]"
  
 
 CloneKernel "--depth=1"
-CloneZyCFoutTeenLabClang
+CloneCompiledGccTwelve
+CloneDTCClang
 # DisableMsmP
-# DisableThin
-TypeBuildTag="[Stable][MPDCL][NoKCAL]"
-CompileClangKernelLLVM && CleanOut
+DisableThin
+OptimizaForSize
+CompileClangKernelLLVMB && CleanOut
