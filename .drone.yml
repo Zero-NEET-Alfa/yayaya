@@ -1,0 +1,112 @@
+--- 
+clone: 
+  depth: 1
+kind: pipeline
+name: ZyCPipeline-begonia-r-oss-std-b
+concurrency:
+  limit: 6
+steps: 
+  - 
+    commands: 
+      - "bash main.sh begonia-r-oss-std-b"
+    environment: 
+      BOT_TOKEN:
+        from_secret: BOT_TOKEN
+      GIT_SECRET:
+        from_secret: GIT_SECRET
+      GIT_SECRETB:
+        from_secret: GIT_SECRETB
+      GIT_USERNAME:
+        from_secret: GIT_USERNAME
+      ZIP_PASS:
+        from_secret: ZIP_PASS
+    image: zycromerz/kerneldocker:v3
+    name: ZyC-Build-begonia-r-oss-std-b
+    trigger: 
+      branch: 
+        - unified-tes
+
+--- 
+clone: 
+  depth: 1
+kind: pipeline
+name: ZyCPipeline-begonia-r-oss-std-c
+concurrency:
+  limit: 6
+steps: 
+  - 
+    commands: 
+      - "bash main.sh begonia-r-oss-std-c"
+    environment: 
+      BOT_TOKEN:
+        from_secret: BOT_TOKEN
+      GIT_SECRET:
+        from_secret: GIT_SECRET
+      GIT_SECRETB:
+        from_secret: GIT_SECRETB
+      GIT_USERNAME:
+        from_secret: GIT_USERNAME
+      ZIP_PASS:
+        from_secret: ZIP_PASS
+    image: zycromerz/kerneldocker:v3
+    name: ZyC-Build-begonia-r-oss-std-c
+    trigger: 
+      branch: 
+        - unified-tes
+
+--- 
+clone: 
+  depth: 1
+kind: pipeline
+name: ZyCPipeline-begonia-r-oss-uv-b
+concurrency:
+  limit: 6
+steps: 
+  - 
+    commands: 
+      - "bash main.sh begonia-r-oss-uv-b"
+    environment: 
+      BOT_TOKEN:
+        from_secret: BOT_TOKEN
+      GIT_SECRET:
+        from_secret: GIT_SECRET
+      GIT_SECRETB:
+        from_secret: GIT_SECRETB
+      GIT_USERNAME:
+        from_secret: GIT_USERNAME
+      ZIP_PASS:
+        from_secret: ZIP_PASS
+    image: zycromerz/kerneldocker:v3
+    name: ZyC-Build-begonia-r-oss-uv-b
+    trigger: 
+      branch: 
+        - unified-tes
+
+--- 
+clone: 
+  depth: 1
+kind: pipeline
+name: ZyCPipeline-begonia-r-oss-uv-c
+concurrency:
+  limit: 6
+steps: 
+  - 
+    commands: 
+      - "bash main.sh begonia-r-oss-uv-c"
+    environment: 
+      BOT_TOKEN:
+        from_secret: BOT_TOKEN
+      GIT_SECRET:
+        from_secret: GIT_SECRET
+      GIT_SECRETB:
+        from_secret: GIT_SECRETB
+      GIT_USERNAME:
+        from_secret: GIT_USERNAME
+      ZIP_PASS:
+        from_secret: ZIP_PASS
+    image: zycromerz/kerneldocker:v3
+    name: ZyC-Build-begonia-r-oss-uv-c
+    trigger: 
+      branch: 
+        - unified-tes
+
