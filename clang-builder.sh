@@ -99,9 +99,9 @@ echo "" >> README.md
 # tar -czvf ../"$ZipName" *
 popd || exit
 
-git clone https://${GITLAB_NAME}:${GITLAB_SECRET}@gitlab.com/ZyCromerZ/clang.git -b $clang_version $(pwd)/FromGithub || git clone https://${GITLAB_NAME}:${GITLAB_SECRET}@gitlab.com/ZyCromerZ/clang.git -b master $(pwd)/FromGithub
+git clone https://${GITLAB_NAME}:${GITLAB_SECRET}@gitlab.com/ZyCromerZ/clang.git -b master $(pwd)/FromGithub
 pushd $(pwd)/FromGithub || exit
-[ -z "$(git branch | grep $clang_version)" ] && git checkout -b $clang_version
+git checkout -b $clang_version
 rm -fr ./*
 cp -r ../install/* .
 git add .
