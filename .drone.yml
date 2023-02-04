@@ -1,0 +1,168 @@
+--- 
+clone: 
+  depth: 1
+kind: pipeline
+name: ZyCPipeline-vayu-r-oss-f-e
+concurrency:
+  limit: 6
+steps: 
+  - 
+    commands: 
+      - "bash main.sh vayu-r-oss-f-e"
+    environment: 
+      BOT_TOKEN:
+        from_secret: BOT_TOKEN
+      GIT_SECRET:
+        from_secret: GIT_SECRET
+      GIT_SECRETB:
+        from_secret: GIT_SECRETB
+      GIT_USERNAME:
+        from_secret: GIT_USERNAME
+      ZIP_PASS:
+        from_secret: ZIP_PASS
+    image: zycromerz/kerneldocker:v3
+    name: ZyC-Build-vayu-r-oss-f-e
+    trigger: 
+      branch: 
+        - unified-tes
+
+--- 
+clone: 
+  depth: 1
+kind: pipeline
+name: ZyCPipeline-vayu-r-oss-f-f
+concurrency:
+  limit: 6
+steps: 
+  - 
+    commands: 
+      - "bash main.sh vayu-r-oss-f-f"
+    environment: 
+      BOT_TOKEN:
+        from_secret: BOT_TOKEN
+      GIT_SECRET:
+        from_secret: GIT_SECRET
+      GIT_SECRETB:
+        from_secret: GIT_SECRETB
+      GIT_USERNAME:
+        from_secret: GIT_USERNAME
+      ZIP_PASS:
+        from_secret: ZIP_PASS
+    image: zycromerz/kerneldocker:v3
+    name: ZyC-Build-vayu-r-oss-f-f
+    trigger: 
+      branch: 
+        - unified-tes
+
+--- 
+clone: 
+  depth: 1
+kind: pipeline
+name: ZyCPipeline-vayu-r-oss-g-e
+concurrency:
+  limit: 6
+steps: 
+  - 
+    commands: 
+      - "bash main.sh vayu-r-oss-g-e"
+    environment: 
+      BOT_TOKEN:
+        from_secret: BOT_TOKEN
+      GIT_SECRET:
+        from_secret: GIT_SECRET
+      GIT_SECRETB:
+        from_secret: GIT_SECRETB
+      GIT_USERNAME:
+        from_secret: GIT_USERNAME
+      ZIP_PASS:
+        from_secret: ZIP_PASS
+    image: zycromerz/kerneldocker:v3
+    name: ZyC-Build-vayu-r-oss-g-e
+    trigger: 
+      branch: 
+        - unified-tes
+
+--- 
+clone: 
+  depth: 1
+kind: pipeline
+name: ZyCPipeline-vayu-r-oss-g-f
+concurrency:
+  limit: 6
+steps: 
+  - 
+    commands: 
+      - "bash main.sh vayu-r-oss-g-f"
+    environment: 
+      BOT_TOKEN:
+        from_secret: BOT_TOKEN
+      GIT_SECRET:
+        from_secret: GIT_SECRET
+      GIT_SECRETB:
+        from_secret: GIT_SECRETB
+      GIT_USERNAME:
+        from_secret: GIT_USERNAME
+      ZIP_PASS:
+        from_secret: ZIP_PASS
+    image: zycromerz/kerneldocker:v3
+    name: ZyC-Build-vayu-r-oss-g-f
+    trigger: 
+      branch: 
+        - unified-tes
+
+--- 
+clone: 
+  depth: 1
+kind: pipeline
+name: ZyCPipeline-vayu-r-oss-h-e
+concurrency:
+  limit: 6
+steps: 
+  - 
+    commands: 
+      - "bash main.sh vayu-r-oss-h-e"
+    environment: 
+      BOT_TOKEN:
+        from_secret: BOT_TOKEN
+      GIT_SECRET:
+        from_secret: GIT_SECRET
+      GIT_SECRETB:
+        from_secret: GIT_SECRETB
+      GIT_USERNAME:
+        from_secret: GIT_USERNAME
+      ZIP_PASS:
+        from_secret: ZIP_PASS
+    image: zycromerz/kerneldocker:v3
+    name: ZyC-Build-vayu-r-oss-h-e
+    trigger: 
+      branch: 
+        - unified-tes
+
+--- 
+clone: 
+  depth: 1
+kind: pipeline
+name: ZyCPipeline-vayu-r-oss-h-f
+concurrency:
+  limit: 6
+steps: 
+  - 
+    commands: 
+      - "bash main.sh vayu-r-oss-h-f"
+    environment: 
+      BOT_TOKEN:
+        from_secret: BOT_TOKEN
+      GIT_SECRET:
+        from_secret: GIT_SECRET
+      GIT_SECRETB:
+        from_secret: GIT_SECRETB
+      GIT_USERNAME:
+        from_secret: GIT_USERNAME
+      ZIP_PASS:
+        from_secret: ZIP_PASS
+    image: zycromerz/kerneldocker:v3
+    name: ZyC-Build-vayu-r-oss-h-f
+    trigger: 
+      branch: 
+        - unified-tes
+
